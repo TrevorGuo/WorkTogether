@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
 import { Link } from "react-router-dom";
 //App icon?
 //import AppIcon from '../images/icon.png';
@@ -62,6 +61,7 @@ class login extends Component {
     };
   }
 
+  //MIGHT NOT WORK?
   static getDerivedStateFromProps(nextProps) {
     if (nextProps.UI.errors) {
       return { errors: nextProps.UI.errors };

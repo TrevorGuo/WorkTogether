@@ -16,6 +16,10 @@ body {
   margin: auto;
 }
 
+.navContainer svg {
+  color: white;
+}
+
 a {
   text-decoration: none;
 }
