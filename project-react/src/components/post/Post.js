@@ -3,6 +3,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import PostDialog from '.PostDialog';
+import LikeButton from './LikeButton'
 
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -59,6 +61,9 @@ class Post extends Component {
             {dayjs(createdAt).fromNow()}
           </Typography>
           <Typography variant="body1">{body}</Typography>
+          //instead of {LikeButton} put <LikeButton postId={postId}>
+          //there's more stuff above this
+          <PostDialog postId={postId} userHandle={userHandle}/>
         </CardContent>
       </Card>
     );
