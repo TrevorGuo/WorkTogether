@@ -1,23 +1,25 @@
-const functions = require("firebase-functions");
-const admin = require('firebase-admin');
+const functions = require('firebase-functions');
+const app = require('express')();
+const FBAuth = require('./util/fbAuth');
 
-admin.initializeApp();
+const {
+  getAllScreams,
+  postOneScream
+} = require('./handlers/screams');
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  response.send("Hello world!");
-});
+const {
+  signup,
+  login,
+  uploadImage,
+  addUserDetails
+} = require('./handlers/users');
 
-exports.getScreams = functions.https.onRequest((req, res) => {
-    admin.firestore().collection('screams').get()
-        .then(data => {
-            let screams = [];
-            data.forEach(doc => {
-                screams.push(doc.data());
-            })
-            return res.json(screams);
-        })
-        .catch(err => console.error(err))
-});
+//screams routes
+app.get('/screams', getAllScreams);
+app.post('/scream', FBAuth, postOneScream);
+
+//users routes
+app.post('/signup', signup);
+app.post('/login', login);
+app.post('/user/image', FBAuth, uploadImage)
+app.post('/user', FBAuth, addUserDetails);
