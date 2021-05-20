@@ -44,5 +44,7 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "https://us-central1-l-project-48aae.cloudfunctions.net"
+  
 }
