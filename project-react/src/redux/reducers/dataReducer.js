@@ -1,30 +1,64 @@
-import{
-    POST_POST
-}
+import {
+  SET_POSTS,
+  LIKE_POST,
+  UNLIKE_POST,
+  LOADING_DATA,
+  DELETE_POST,
+  SET_POST,
+  POST_POST
+} from '../types';
 
-//inside the switch statment there should be 
-case LIKE_SCREAM:
-case UNLIKE_SCREAM:
-    let index = state.posts.findIndex(
+const initialState = {
+  posts: [],
+  post: {},
+  loading: false
+};
+
+export default function (state = initialState, action) {
+  switch (action.type) {
+    case LOADING_DATA:
+      return {
+        ...state,
+        loading: true
+      };
+    case SET_POSTS:
+      return {
+        ...state,
+        posts: action.payload,
+        loading: false
+      };
+    case SET_POST:
+      return {
+        ...state,
+        post: action.payload
+      };
+    case LIKE_POST:
+    case UNLIKE_POST:
+      let index = state.posts.findIndex(
         (post) => post.postId === action.payload.postId
-    );
-    state.posts[index] = action.paylod;
-    if(state.post.postId === action.payload.postId){
+      );
+      state.posts[index] = action.payload;
+      if (state.post.postId === action.payload.postId) {
         state.post = action.payload;
-    }
-    return{
+      }
+      return {
         ...state
-    };
-case SET_POST:
-    return {
+      };
+    case POST_POST:
+      return {
         ...state,
-        post: action.payload,
-    };
-case POST_POST:
-    return {
-        ...state,
-        posts:[
-            action.payload,
-            ...state.posts
+        posts: [
+          action.payload,
+          ...state.posts
         ]
-    }
+      }
+    case DELETE_POST:
+      index = state.posts.findIndex(post => post.postId === action.payload);
+      state.posts.splice(index, 1);
+      return {
+        ...state
+      };
+    default:
+      return state;
+  }
+}
