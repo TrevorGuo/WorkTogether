@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
 import Comments from './Comments';
 import dayjs from 'dayjs';
@@ -18,7 +18,7 @@ import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import ChatIcon from '@material-ui/icons/Chat';
 // Redux stuff
 import {connect} from 'react-redux';
-import{getPost} from '../redux/actions/dataActions';
+import{getPost} from '../../redux/actions/dataActions';
 
 const styles =theme =>({
     ...theme,
@@ -92,7 +92,7 @@ class PostDialog extends Component{
                     <span>{commentCount} comments</span>
                 </Grid>
                 <hr className={classes.visibleSeparator}/>
-                <Comments comments={comments}>
+                <Comments comments={comments}/>
             </Grid>
         )
         return (

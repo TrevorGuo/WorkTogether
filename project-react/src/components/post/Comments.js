@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import PropTpes from 'prop-types';
+import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import {Link} from 'react-router-dom';
 import dayjs from 'dayjs';
