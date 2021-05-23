@@ -11,7 +11,6 @@
     "axios": "^0.21.1",
     "dayjs": "^1.10.4",
     "jwt-decode": "^3.1.2",
-    "material-ui-icons": "^1.0.0-beta.36",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
@@ -45,6 +44,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://us-central1-l-project-48aae.cloudfunctions.net"
-  
+  "proxy": "https://us-central1-l-project-48aae.cloudfunctions.net/api"
 }

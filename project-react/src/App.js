@@ -24,6 +24,9 @@ import axios from "axios";
 //Theme for web app
 const theme = createMuiTheme(themeFile);
 
+axios.defaults.baseURL =
+  "https://us-central1-l-project-48aae.cloudfunctions.net/api";
+
 const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);

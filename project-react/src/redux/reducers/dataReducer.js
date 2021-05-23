@@ -5,13 +5,13 @@ import {
   LOADING_DATA,
   DELETE_POST,
   SET_POST,
-  POST_POST
-} from '../types';
+  UPLOAD_POST,
+} from "../types";
 
 const initialState = {
   posts: [],
   post: {},
-  loading: false
+  loading: false,
 };
 
 export default function (state = initialState, action) {
@@ -19,18 +19,18 @@ export default function (state = initialState, action) {
     case LOADING_DATA:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case SET_POSTS:
       return {
         ...state,
         posts: action.payload,
-        loading: false
+        loading: false,
       };
     case SET_POST:
       return {
         ...state,
-        post: action.payload
+        post: action.payload,
       };
     case LIKE_POST:
     case UNLIKE_POST:
@@ -42,21 +42,18 @@ export default function (state = initialState, action) {
         state.post = action.payload;
       }
       return {
-        ...state
+        ...state,
       };
-    case POST_POST:
+    case UPLOAD_POST:
       return {
         ...state,
-        posts: [
-          action.payload,
-          ...state.posts
-        ]
-      }
+        posts: [action.payload, ...state.posts],
+      };
     case DELETE_POST:
-      index = state.posts.findIndex(post => post.postId === action.payload);
+      index = state.posts.findIndex((post) => post.postId === action.payload);
       state.posts.splice(index, 1);
       return {
-        ...state
+        ...state,
       };
     default:
       return state;

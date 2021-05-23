@@ -5,7 +5,7 @@ import {
   UNLIKE_POST,
   DELETE_POST,
   SET_ERRORS,
-  POST_POST,
+  UPLOAD_POST,
   CLEAR_ERRORS,
   LOADING_UI,
   STOP_LOADING_UI,
@@ -46,13 +46,13 @@ export const getPost = (postId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 //Post a post
-export const postPost = (newPost) => (dispatch) => {
+export const uploadPost = (newPost) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
     .post("/post", newPost)
     .then((res) => {
       dispatch({
-        type: POST_POST,
+        type: UPLOAD_POST,
         payload: res.data,
       });
       dispatch({ type: CLEAR_ERRORS });

@@ -13,7 +13,7 @@ import AddIcon from "@material-ui/icons/Add";
 import CloseIcon from "@material-ui/icons/Close";
 // Redux stuff
 import { connect } from "react-redux";
-import { postPost, clearErrors } from "../../redux/actions/dataActions";
+import { uploadPost, clearErrors } from "../../redux/actions/dataActions";
 
 const styles = (theme) => ({
   ...theme.spreadThis,
@@ -32,7 +32,7 @@ const styles = (theme) => ({
   },
 });
 
-class PostPost extends Component {
+class UploadPost extends Component {
   state = {
     open: false,
     body: "",
@@ -60,7 +60,7 @@ class PostPost extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.postPost({ body: this.state.body });
+    this.props.uploadPost({ body: this.state.body });
   };
   render() {
     const { errors } = this.state;
@@ -125,8 +125,8 @@ class PostPost extends Component {
   }
 }
 
-PostPost.propTypes = {
-  postPost: PropTypes.func.isRequired,
+UploadPost.propTypes = {
+  uploadPost: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired,
 };
@@ -135,6 +135,6 @@ const mapStateToProps = (state) => ({
   UI: state.UI,
 });
 
-export default connect(mapStateToProps, { postPost, clearErrors })(
-  withStyles(styles)(PostPost)
+export default connect(mapStateToProps, { uploadPost, clearErrors })(
+  withStyles(styles)(UploadPost)
 );

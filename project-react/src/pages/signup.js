@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { signupUser } from "../redux/actions/userActions";
 
-//MUI Stuff
+//MUI
 import Grid from "@material-ui/core/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
@@ -42,6 +42,9 @@ class signup extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    this.setState({
+      loading: true,
+    });
     const newUserData = {
       email: this.state.email,
       password: this.state.password,
@@ -74,7 +77,7 @@ class signup extends Component {
               id="email"
               name="email"
               type="email"
-              label="Username or email"
+              label="Email"
               className={classes.textField}
               helperText={errors.email}
               error={errors.email ? true : false}
@@ -97,7 +100,7 @@ class signup extends Component {
             <TextField
               id="confirmPassword"
               name="confirmPassword"
-              type="confirmPassword"
+              type="password"
               label="Confirm Password"
               className={classes.textField}
               helperText={errors.confirmPassword}
