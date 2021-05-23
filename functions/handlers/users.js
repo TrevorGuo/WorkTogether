@@ -1,7 +1,18 @@
 const { admin, db } = require("../util/admin");
 
-const config = require("../util/config");
+//const config = require("../util/config");
+
 const { uuid } = require("uuidv4");
+
+const config = {
+  apiKey: "AIzaSyB3A0_5o-q6jVhx2XG5hipQWG3IKjmAC8g",
+  authDomain: "l-project-48aae.firebaseapp.com",
+  projectId: "l-project-48aae",
+  storageBucket: "l-project-48aae.appspot.com",
+  messagingSenderId: "394849657085",
+  appId: "1:394849657085:web:6992b9b8f61485f9aa5e94",
+  measurementId: "G-812BQNVQBY",
+};
 
 const firebase = require("firebase");
 firebase.initializeApp(config);
@@ -22,7 +33,6 @@ exports.signup = (req, res) => {
   };
 
   const { valid, errors } = validateSignupData(newUser);
-
   if (!valid) return res.status(400).json(errors);
 
   const noImg = "no-img.png";
@@ -45,6 +55,7 @@ exports.signup = (req, res) => {
     })
     .then((idToken) => {
       token = idToken;
+      console.log(token);
       const userCredentials = {
         handle: newUser.handle,
         email: newUser.email,
