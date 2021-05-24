@@ -1,5 +1,5 @@
 let db = {
-  screams: [
+  posts: [
     {
       userHandle: 'user',
       body: 'screen body',
