@@ -86,7 +86,7 @@ class PostDialog extends Component {
         <CircularProgress size={200} thickness={2} />
       </div>
     ) : (
-      <Grid container spacing={16}>
+      <Grid container spacing={10}>
         <Grid item sm={5}>
           <img src={userImage} alt='Profile' className={classes.profileImage} />
         </Grid>
@@ -114,13 +114,9 @@ class PostDialog extends Component {
         </Grid>
         <CommentForm postId={postId} />
         <hr className={classes.visibleSeparator} />
-        {/* <Comments comments={comments} /> */}
+        <Comments comments={comments} />
       </Grid>
     );
-    if (this.state.open) {
-      console.log(this.props.post);
-      console.log(comments);
-    }
     return (
       <Fragment>
         <MyButton

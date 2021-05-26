@@ -29,24 +29,27 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case SET_POST:
+      console.log(action.payload);
       return {
         ...state,
         post: action.payload,
       };
     case LIKE_POST:
     case UNLIKE_POST:
-      console.log('Before reduction');
-      console.log(state);
       let index = state.posts.findIndex(
         (post) => post.postId === action.payload.postId
       );
       state.posts[index] = action.payload;
+      const comments = state.post.comments;
       if (state.post.postId === action.payload.postId) {
         state.post = action.payload;
       }
-      console.log(state);
       return {
         ...state,
+        post: {
+          ...state.post,
+          comments,
+        },
       };
     case UPLOAD_POST:
       return {
