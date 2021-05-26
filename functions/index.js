@@ -44,7 +44,7 @@ app.get('/user', FBAuth, getAuthenticatedUser);
 app.get('/user/:handle', getUserDetails);
 app.post('/notifications', FBAuth, markNotificationsRead);
 
-exports.api = functions.https.onRequest(app);
+exports.api = functions.region('us-central1').https.onRequest(app);
 
 exports.createNotificationOnLike = functions
   .firestore.document('likes/{id}')

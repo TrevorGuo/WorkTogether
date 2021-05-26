@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getPosts } from '../redux/actions/dataActions';
 import Post from '../components/post/Post';
-import Profile from '../components/profile/Profile';
+import Group from '../components/group/Group';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-class home extends Component {
+class groups extends Component {
   componentDidMount() {
     this.props.getPosts();
   }
@@ -28,14 +28,14 @@ class home extends Component {
           {recentPostsMarkup}
         </Grid>
         <Grid item sm={4} xs={12}>
-          <Profile />
+          <Group />
         </Grid>
       </Grid>
     );
   }
 }
 
-home.propTypes = {
+groups.propTypes = {
   getPosts: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
 };
@@ -44,4 +44,4 @@ const mapStateToProps = (state) => ({
   data: state.data,
 });
 
-export default connect(mapStateToProps, { getPosts })(home);
+export default connect(mapStateToProps, { getPosts })(groups);

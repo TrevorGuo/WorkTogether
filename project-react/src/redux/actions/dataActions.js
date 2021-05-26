@@ -10,14 +10,14 @@ import {
   LOADING_UI,
   STOP_LOADING_UI,
   SET_POST,
-} from "../types";
-import axios from "axios";
+} from '../types';
+import axios from 'axios';
 
 // Get all posts
 export const getPosts = () => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios
-    .get("/posts")
+    .get('/posts')
     .then((res) => {
       dispatch({
         type: SET_POSTS,
@@ -48,9 +48,11 @@ export const getPost = (postId) => (dispatch) => {
 //Post a post
 export const uploadPost = (newPost) => (dispatch) => {
   dispatch({ type: LOADING_UI });
+  console.log(newPost);
   axios
-    .post("/post", newPost)
+    .post('/post', newPost)
     .then((res) => {
+      console.log("i'm trolling");
       dispatch({
         type: UPLOAD_POST,
         payload: res.data,
@@ -58,6 +60,7 @@ export const uploadPost = (newPost) => (dispatch) => {
       dispatch({ type: CLEAR_ERRORS });
     })
     .catch((err) => {
+      console.log(err);
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data,

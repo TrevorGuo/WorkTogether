@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
-import EditDetails from './EditDetails';
 import MyButton from '../../util/MyButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -23,7 +22,7 @@ const styles = (theme) => ({
   ...theme.profileSpread,
 });
 
-class Profile extends Component {
+class Group extends Component {
   handleImageChange = (event) => {
     const image = event.target.files[0];
     const formData = new FormData();
@@ -59,13 +58,14 @@ class Profile extends Component {
                 hidden='hidden'
                 onChange={this.handleImageChange}
               />
-              <MyButton
+              {/* Change to edit group profile */}
+              {/* <MyButton
                 tip='Edit profile picture'
                 onClick={this.handleEditPicture}
                 btnClassName='button'
               >
                 <EditIcon color='primary' />
-              </MyButton>
+              </MyButton> */}
             </div>
             <hr />
             <div className='profile-details'>
@@ -97,12 +97,12 @@ class Profile extends Component {
                 </Fragment>
               )}
               <CalendarToday color='primary' />{' '}
-              <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
+              <span>Created {dayjs(createdAt).format('MMM YYYY')}</span>
             </div>
+            {/* LEAVE GROUP BUTTON
             <MyButton tip='Logout' onClick={this.handleLogout}>
               <KeyboardReturn color='primary' />
-            </MyButton>
-            <EditDetails />
+            </MyButton> */}
           </div>
         </Paper>
       ) : (
@@ -144,8 +144,9 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = { logoutUser, uploadImage };
 
-Profile.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
+Group.propTypes = {
+  // change to leave group
+  // logoutUser: PropTypes.func.isRequired,
   uploadImage: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
@@ -154,4 +155,4 @@ Profile.propTypes = {
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(withStyles(styles)(Profile));
+)(withStyles(styles)(Group));

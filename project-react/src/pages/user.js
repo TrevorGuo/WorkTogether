@@ -11,22 +11,21 @@ import { getUserData } from '../redux/actions/dataActions';
 class user extends Component {
   state = {
     profile: null,
-    postIdParam: null
+    postIdParam: null,
   };
 
   componentDidMount() {
     const handle = this.props.match.params.handle;
     const postId = this.props.match.params.postId;
 
-    if(postId)
-        this.setState({ postIdParam: postId });
+    if (postId) this.setState({ postIdParam: postId });
 
     this.props.getUserData(handle);
     axios
       .get(`/user/${handle}`)
       .then((res) => {
         this.setState({
-          profile: res.data.user
+          profile: res.data.user,
         });
       })
       .catch((err) => console.log(err));
@@ -69,14 +68,11 @@ class user extends Component {
 
 user.propTypes = {
   getUserData: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  data: state.data
+  data: state.data,
 });
 
-export default connect(
-  mapStateToProps,
-  { getUserData }
-)(user);
+export default connect(mapStateToProps, { getUserData })(user);

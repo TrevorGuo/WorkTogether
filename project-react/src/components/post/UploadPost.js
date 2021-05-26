@@ -38,6 +38,20 @@ class UploadPost extends Component {
     body: "",
     errors: {},
   };
+
+  // static getDerivedStateFromProps(nextProps) {
+  //   if (nextProps.UI.errors) {
+  //     return { errors: nextProps.UI.errors };
+  //   }
+  //   if (!nextProps.UI.errors && !nextProps.UI.loading) {
+  //     return { body: "", open: false, errors: {} };
+  //   }
+  //   if (nextProps.state.open) {
+  //     return { body: "", open: true, errors: {} };
+  //   }
+  //   return null;
+  // }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({
@@ -48,6 +62,7 @@ class UploadPost extends Component {
       this.setState({ body: "", open: false, errors: {} });
     }
   }
+
   handleOpen = () => {
     this.setState({ open: true });
   };
