@@ -7,7 +7,7 @@ import {
   SET_POST,
   UPLOAD_POST,
   SUBMIT_COMMENT,
-} from "../types";
+} from '../types';
 
 const initialState = {
   posts: [],
@@ -35,6 +35,8 @@ export default function (state = initialState, action) {
       };
     case LIKE_POST:
     case UNLIKE_POST:
+      console.log('Before reduction');
+      console.log(state);
       let index = state.posts.findIndex(
         (post) => post.postId === action.payload.postId
       );
@@ -42,6 +44,7 @@ export default function (state = initialState, action) {
       if (state.post.postId === action.payload.postId) {
         state.post = action.payload;
       }
+      console.log(state);
       return {
         ...state,
       };
@@ -61,9 +64,9 @@ export default function (state = initialState, action) {
         ...state,
         post: {
           ...state.post,
-          comments: [action.payload, ...state.post.comments]
-        }
-      }
+          comments: [action.payload, ...state.post.comments],
+        },
+      };
     default:
       return state;
   }

@@ -4,6 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
 import Comments from './Comments';
+import CommentForm from './CommentForm';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 // MUI Stuff
@@ -18,7 +19,7 @@ import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import ChatIcon from '@material-ui/icons/Chat';
 // Redux stuff
 import { connect } from 'react-redux';
-import { getPost } from '../../redux/actions/dataActions';
+import { getPost, clearErrors } from '../../redux/actions/dataActions';
 
 const styles = (theme) => ({
   ...theme.spreadThis,
@@ -85,7 +86,7 @@ class PostDialog extends Component {
         <CircularProgress size={200} thickness={2} />
       </div>
     ) : (
-      <Grid container spacing={10}>
+      <Grid container spacing={16}>
         <Grid item sm={5}>
           <img src={userImage} alt='Profile' className={classes.profileImage} />
         </Grid>
@@ -111,10 +112,15 @@ class PostDialog extends Component {
           </MyButton>
           <span>{commentCount} comments</span>
         </Grid>
+        <CommentForm postId={postId} />
         <hr className={classes.visibleSeparator} />
-        <Comments comments={comments} />
+        {/* <Comments comments={comments} /> */}
       </Grid>
     );
+    if (this.state.open) {
+      console.log(this.props.post);
+      console.log(comments);
+    }
     return (
       <Fragment>
         <MyButton
@@ -161,6 +167,7 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = {
   getPost,
+  clearErrors,
 };
 
 export default connect(

@@ -67,8 +67,8 @@ class UploadPost extends Component {
     this.setState({ open: true });
   };
   handleClose = () => {
-    this.props.clearErrors();
     this.setState({ open: false, errors: {} });
+    this.props.clearErrors();
   };
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });

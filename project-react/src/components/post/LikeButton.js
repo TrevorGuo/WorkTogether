@@ -26,7 +26,7 @@ export class LikeButton extends Component {
   };
   render() {
     const { authenticated } = this.props.user;
-    const likeButton = !authenticated ? (
+    const LikeButton = !authenticated ? (
       <Link to='/login'>
         <MyButton tip='Like'>
           <FavoriteBorder color='primary' />
@@ -41,7 +41,7 @@ export class LikeButton extends Component {
         <FavoriteBorder color='primary' />
       </MyButton>
     );
-    return likeButton;
+    return LikeButton;
   }
 }
 

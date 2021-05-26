@@ -30,7 +30,7 @@ class Navbar extends Component {
               </Link>
               <Link to='/groups'>
                 <MyButton tip='Groups'>
-                  <Icon path={mdiAccountGroup} />
+                  <Icon path={mdiAccountGroup} size={1} />
                 </MyButton>
               </Link>
               <MyButton tip='Notifications'>
