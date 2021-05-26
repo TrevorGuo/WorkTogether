@@ -37,6 +37,7 @@ export const getPost = (postId) => (dispatch) => {
   axios
     .get(`/post/${postId}`)
     .then((res) => {
+      console.log(res);
       dispatch({
         type: SET_POST,
         payload: res.data,
@@ -48,11 +49,9 @@ export const getPost = (postId) => (dispatch) => {
 //Post a post
 export const uploadPost = (newPost) => (dispatch) => {
   dispatch({ type: LOADING_UI });
-  console.log(newPost);
   axios
     .post('/post', newPost)
     .then((res) => {
-      console.log("i'm trolling");
       dispatch({
         type: UPLOAD_POST,
         payload: res.data,
