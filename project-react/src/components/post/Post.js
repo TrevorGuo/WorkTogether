@@ -21,13 +21,19 @@ import { connect } from 'react-redux';
 import { likePost, unlikePost } from '../../redux/actions/dataActions';
 
 const styles = {
+  profileImage: {
+    width: 100,
+    height: 100,
+    objectFit: 'cover',
+    maxWidth: '50%',
+    borderRadius: '50%',
+    margin: '15px 0px auto 10px',
+  },
   card: {
     position: 'relative',
     display: 'flex',
     marginBottom: 20,
-  },
-  image: {
-    minWidth: 200,
+    marginLeft: 30,
   },
   content: {
     padding: 25,
@@ -94,11 +100,12 @@ class Post extends Component {
       ) : null;
     return (
       <Card className={classes.card}>
-        <CardMedia
+        <img src={userImage} alt='Profile' className={classes.profileImage} />
+        {/* <CardMedia
           image={userImage}
           title='Profile image'
           className={classes.image}
-        />
+        /> */}
         <CardContent className={classes.content}>
           <Typography
             variant='h5'

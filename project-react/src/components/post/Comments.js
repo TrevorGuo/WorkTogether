@@ -15,6 +15,7 @@ const styles = (theme) => ({
     height: 80,
     objectFit: 'cover',
     borderRadius: '50%',
+    marginLeft: 25,
   },
   commentData: {
     marginLeft: 20,

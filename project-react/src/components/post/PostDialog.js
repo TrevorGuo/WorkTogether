@@ -30,7 +30,7 @@ const styles = (theme) => ({
     objectFit: 'cover',
   },
   dialogContent: {
-    padding: 20,
+    padding: 30,
   },
   closeButton: {
     position: 'absolute',
@@ -38,7 +38,7 @@ const styles = (theme) => ({
   },
   expandButton: {
     position: 'absolution',
-    left: '90%',
+    left: '100%',
   },
   spinnerDiv: {
     textAlign: 'center',
