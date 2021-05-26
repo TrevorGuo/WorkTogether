@@ -4,7 +4,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import MyButton from "../../util/MyButton";
 import LikeButton from "./LikeButton";
 import Comments from "./Comments";
-import CommentForm from './CommentForm'
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 // MUI Stuff
@@ -19,7 +18,7 @@ import UnfoldMore from "@material-ui/icons/UnfoldMore";
 import ChatIcon from "@material-ui/icons/Chat";
 // Redux stuff
 import { connect } from "react-redux";
-import { getPost,clearErrors }  from "../../redux/actions/dataActions";
+import { getPost } from "../../redux/actions/dataActions";
 
 const styles = (theme) => ({
   ...theme.spreadThis,
@@ -50,28 +49,13 @@ const styles = (theme) => ({
 class PostDialog extends Component {
   state = {
     open: false,
-    oldPath: '',
-    newPath: ''
   };
-  componentDidMount() {
-    if (this.props.openDialog)
-      this.handleOpen();
-  }
   handleOpen = () => {
-    let oldPath = window.location.pathname;
-    const { userHandle, postId } = this.props;
-    const newPath = `/users/${userHandle}/post/${postId}`;
-    if (oldPath === newPath)
-      oldPath = `/users/${userHandle}`;
-    window.history.pushState(null, null, newPath);
-
-    this.setState({ open: true, oldPath, newPath });
+    this.setState({ open: true });
     this.props.getPost(this.props.postId);
   };
   handleClose = () => {
-    window.history.pushState(null, null, this.state.oldPath);
     this.setState({ open: false });
-    this.props.clearErrors();
   };
 
   render() {
@@ -121,7 +105,6 @@ class PostDialog extends Component {
           <span>{commentCount} comments</span>
         </Grid>
         <hr className={classes.visibleSeparator} />
-        <CommentForm postId={postId}/>
         <Comments comments={comments} />
       </Grid>
     );
@@ -154,7 +137,6 @@ class PostDialog extends Component {
 }
 
 PostDialog.propTypes = {
-  clearErrors: PropTypes.func.isRequired,
   getPost: PropTypes.func.isRequired,
   postId: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
@@ -169,7 +151,6 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = {
   getPost,
-  clearErrors,
 };
 
 export default connect(
