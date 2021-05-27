@@ -23,8 +23,17 @@ const {
   addUserDetails,
   getAuthenticatedUser,
   getUserDetails,
-  markNotificationsRead
+  markNotificationsRead,
+  createGroup,
 } = require('./handlers/users');
+
+const {
+  createGroup,
+  getGroup,
+  joinGroup,
+  leaveGroup,
+  deleteGroup,
+} = require('./handlers/groups');
 
 // Post routes
 app.get('/posts', getAllPosts);
@@ -35,6 +44,14 @@ app.get('/post/:postId/like', FBAuth, likePost);
 app.get('/post/:postId/unlike', FBAuth, unlikePost);
 app.post('/post/:postId/comment', FBAuth, commentOnPost);
 
+// Groups routes
+app.get('/groups', getGroup);
+app.post('/groups', FBAuth,createGroup);
+app.post('/groups',FBAuth,joinGroup);
+app.post('/groups',FBAuth,leaveGroup);
+app.post('/groups',FBAuth,joinGroup);
+app.delete('/groups',FBAuth,deleteGroup);
+
 // users routes
 app.post('/signup', signup);
 app.post('/login', login);
@@ -43,6 +60,7 @@ app.post('/user', FBAuth, addUserDetails);
 app.get('/user', FBAuth, getAuthenticatedUser);
 app.get('/user/:handle', getUserDetails);
 app.post('/notifications', FBAuth, markNotificationsRead);
+app.post('/group')
 
 exports.api = functions.https.onRequest(app);
 

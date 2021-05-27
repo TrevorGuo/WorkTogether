@@ -1,8 +1,25 @@
 const { db } = require("../util/admin");
 console.log(db);
 
+// Alter to get posts for users in the same group. Can use a search algorithm
+/*
+Steps to implement groups:
+  - Add a group ID to user creation COMPLETE
+    - Need to edit get user details, getAuthenticateduser, and signup in users.js COMPLETE
+  - Set field initially to like empty or some shit COMPLETE
+  - If a user joins a group, their group ID field is equal to the id of the group they are joining
+  - Every time a group is initialized, the group is assigned an ID. 
+  - To display feed, search through posts collection for all posts with same group ID COMPLETE
+    - edit getAllposts
+  - Limit group size to 10.  
+  - Need to create join group and leave group functionalities, as well as create group and delete group
+
+
+
+*/
 exports.getAllPosts = (req, res) => {
-  db.collection("posts")
+  db.collection("posts") 
+    .where("groupHandle", "==", req.user.gHandle)
     .orderBy("createdAt", "desc")
     .get()
     .then((data) => {
@@ -16,6 +33,7 @@ exports.getAllPosts = (req, res) => {
           commentCount: doc.data().commentCount,
           likeCount: doc.data().likeCount,
           userImage: doc.data().userImage,
+          groupHandle: doc.data().groupHandle,
         });
       });
       return res.json(posts);
@@ -38,6 +56,7 @@ exports.postOnePost = (req, res) => {
     createdAt: new Date().toISOString(),
     likeCount: 0,
     commentCount: 0,
+    groupHandle: req.user.gHandle,
   };
 
   db.collection("posts")
@@ -91,6 +110,7 @@ exports.commentOnPost = (req, res) => {
     createdAt: new Date().toISOString(),
     postId: req.params.postId,
     userHandle: req.user.handle,
+    groupHandle: req.user.gHandle,
     userImage: req.user.imageUrl,
   };
   console.log(newComment);
@@ -144,6 +164,7 @@ exports.likePost = (req, res) => {
           .add({
             postId: req.params.postId,
             userHandle: req.user.handle,
+            groupHandle: req.user.gHandle,
           })
           .then(() => {
             postData.likeCount++;
