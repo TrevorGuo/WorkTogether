@@ -1,6 +1,7 @@
 const functions = require('firebase-functions');
 const app = require('express')();
 const FBAuth = require('./util/fbAuth');
+console.log(FBAuth);
 
 const cors = require('cors');
 app.use(cors());
@@ -9,12 +10,12 @@ const { db } = require('./util/admin');
 
 const {
   getAllPosts,
-  postOnePost,
+  uploadOnePost,
   getPost,
   commentOnPost,
   likePost,
   unlikePost,
-  deletePost
+  deletePost,
 } = require('./handlers/posts');
 const {
   signup,
@@ -24,7 +25,6 @@ const {
   getAuthenticatedUser,
   getUserDetails,
   markNotificationsRead,
-  createGroup,
 } = require('./handlers/users');
 
 const {
@@ -37,7 +37,7 @@ const {
 
 // Post routes
 app.get('/posts', getAllPosts);
-app.post('/post', FBAuth, postOnePost);
+app.post('/post', FBAuth, uploadOnePost);
 app.get('/post/:postId', getPost);
 app.delete('/post/:postId', FBAuth, deletePost);
 app.get('/post/:postId/like', FBAuth, likePost);
@@ -64,8 +64,8 @@ app.post('/group')
 
 exports.api = functions.https.onRequest(app);
 
-exports.createNotificationOnLike = functions
-  .firestore.document('likes/{id}')
+exports.createNotificationOnLike = functions.firestore
+  .document('likes/{id}')
   .onCreate((snapshot) => {
     return db
       .doc(`/posts/${snapshot.data().postId}`)
@@ -81,15 +81,15 @@ exports.createNotificationOnLike = functions
             sender: snapshot.data().userHandle,
             type: 'like',
             read: false,
-            postId: doc.id
+            postId: doc.id,
           });
         }
       })
       .catch((err) => console.error(err));
   });
 
-exports.deleteNotificationOnUnLike = functions
-  .firestore.document('likes/{id}')
+exports.deleteNotificationOnUnLike = functions.firestore
+  .document('likes/{id}')
   .onDelete((snapshot) => {
     return db
       .doc(`/notifications/${snapshot.id}`)
@@ -100,8 +100,8 @@ exports.deleteNotificationOnUnLike = functions
       });
   });
 
-exports.createNotificationOnComment = functions
-  .firestore.document('comments/{id}')
+exports.createNotificationOnComment = functions.firestore
+  .document('comments/{id}')
   .onCreate((snapshot) => {
     return db
       .doc(`/posts/${snapshot.data().postId}`)
@@ -117,7 +117,7 @@ exports.createNotificationOnComment = functions
             sender: snapshot.data().userHandle,
             type: 'comment',
             read: false,
-            postId: doc.id
+            postId: doc.id,
           });
         }
       })
@@ -127,8 +127,8 @@ exports.createNotificationOnComment = functions
       });
   });
 
-exports.onUserImageChange = functions
-  .firestore.document('/users/{userId}')
+exports.onUserImageChange = functions.firestore
+  .document('/users/{userId}')
   .onUpdate((change) => {
     console.log(change.before.data());
     console.log(change.after.data());
@@ -149,8 +149,8 @@ exports.onUserImageChange = functions
     } else return true;
   });
 
-exports.onPostDelete = functions
-  .firestore.document('/posts/{postId}')
+exports.onPostDelete = functions.firestore
+  .document('/posts/{postId}')
   .onDelete((snapshot, context) => {
     const postId = context.params.postId;
     const batch = db.batch();
@@ -162,10 +162,7 @@ exports.onPostDelete = functions
         data.forEach((doc) => {
           batch.delete(db.doc(`/comments/${doc.id}`));
         });
-        return db
-          .collection('likes')
-          .where('postId', '==', postId)
-          .get();
+        return db.collection('likes').where('postId', '==', postId).get();
       })
       .then((data) => {
         data.forEach((doc) => {

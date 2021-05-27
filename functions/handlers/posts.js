@@ -1,5 +1,4 @@
-const { db } = require("../util/admin");
-console.log(db);
+const { db } = require('../util/admin');
 
 // Alter to get posts for users in the same group. Can use a search algorithm
 /*
@@ -44,9 +43,9 @@ exports.getAllPosts = (req, res) => {
     });
 };
 
-exports.postOnePost = (req, res) => {
-  if (req.body.body.trim() === "") {
-    return res.status(400).json({ body: "Body must not be empty" });
+exports.uploadOnePost = (req, res) => {
+  if (req.body.body.trim() === '') {
+    return res.status(400).json({ body: 'Body must not be empty' });
   }
 
   const newPost = {
@@ -59,7 +58,7 @@ exports.postOnePost = (req, res) => {
     groupHandle: req.user.gHandle,
   };
 
-  db.collection("posts")
+  db.collection('posts')
     .add(newPost)
     .then((doc) => {
       const resPost = newPost;
@@ -67,7 +66,7 @@ exports.postOnePost = (req, res) => {
       res.json(resPost);
     })
     .catch((err) => {
-      res.status(500).json({ error: "something went wrong" });
+      res.status(500).json({ error: 'something went wrong' });
       console.error(err);
     });
 };
@@ -78,14 +77,14 @@ exports.getPost = (req, res) => {
     .get()
     .then((doc) => {
       if (!doc.exists) {
-        return res.status(404).json({ error: "Post not found" });
+        return res.status(404).json({ error: 'Post not found' });
       }
       postData = doc.data();
       postData.postId = doc.id;
       return db
-        .collection("comments")
-        .orderBy("createdAt", "desc")
-        .where("postId", "==", req.params.postId)
+        .collection('comments')
+        .orderBy('createdAt', 'desc')
+        .where('postId', '==', req.params.postId)
         .get();
     })
     .then((data) => {
@@ -102,8 +101,8 @@ exports.getPost = (req, res) => {
 };
 // Comment on a comment
 exports.commentOnPost = (req, res) => {
-  if (req.body.body.trim() === "")
-    return res.status(400).json({ comment: "Must not be empty" });
+  if (req.body.body.trim() === '')
+    return res.status(400).json({ comment: 'Must not be empty' });
 
   const newComment = {
     body: req.body.body,
@@ -119,27 +118,27 @@ exports.commentOnPost = (req, res) => {
     .get()
     .then((doc) => {
       if (!doc.exists) {
-        return res.status(404).json({ error: "Post not found" });
+        return res.status(404).json({ error: 'Post not found' });
       }
       return doc.ref.update({ commentCount: doc.data().commentCount + 1 });
     })
     .then(() => {
-      return db.collection("comments").add(newComment);
+      return db.collection('comments').add(newComment);
     })
     .then(() => {
       res.json(newComment);
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ error: "Something went wrong" });
+      res.status(500).json({ error: 'Something went wrong' });
     });
 };
 // Like a post
 exports.likePost = (req, res) => {
   const likeDocument = db
-    .collection("likes")
-    .where("userHandle", "==", req.user.handle)
-    .where("postId", "==", req.params.postId)
+    .collection('likes')
+    .where('userHandle', '==', req.user.handle)
+    .where('postId', '==', req.params.postId)
     .limit(1);
 
   const postDocument = db.doc(`/posts/${req.params.postId}`);
@@ -154,13 +153,13 @@ exports.likePost = (req, res) => {
         postData.postId = doc.id;
         return likeDocument.get();
       } else {
-        return res.status(404).json({ error: "Post not found" });
+        return res.status(404).json({ error: 'Post not found' });
       }
     })
     .then((data) => {
       if (data.empty) {
         return db
-          .collection("likes")
+          .collection('likes')
           .add({
             postId: req.params.postId,
             userHandle: req.user.handle,
@@ -174,7 +173,7 @@ exports.likePost = (req, res) => {
             return res.json(postData);
           });
       } else {
-        return res.status(400).json({ error: "Post already liked" });
+        return res.status(400).json({ error: 'Post already liked' });
       }
     })
     .catch((err) => {
@@ -185,9 +184,9 @@ exports.likePost = (req, res) => {
 
 exports.unlikePost = (req, res) => {
   const likeDocument = db
-    .collection("likes")
-    .where("userHandle", "==", req.user.handle)
-    .where("postId", "==", req.params.postId)
+    .collection('likes')
+    .where('userHandle', '==', req.user.handle)
+    .where('postId', '==', req.params.postId)
     .limit(1);
 
   const postDocument = db.doc(`/posts/${req.params.postId}`);
@@ -202,12 +201,12 @@ exports.unlikePost = (req, res) => {
         postData.postId = doc.id;
         return likeDocument.get();
       } else {
-        return res.status(404).json({ error: "Post not found" });
+        return res.status(404).json({ error: 'Post not found' });
       }
     })
     .then((data) => {
       if (data.empty) {
-        return res.status(400).json({ error: "Post not liked" });
+        return res.status(400).json({ error: 'Post not liked' });
       } else {
         return db
           .doc(`/likes/${data.docs[0].id}`)
@@ -233,16 +232,16 @@ exports.deletePost = (req, res) => {
     .get()
     .then((doc) => {
       if (!doc.exists) {
-        return res.status(404).json({ error: "Post not found" });
+        return res.status(404).json({ error: 'Post not found' });
       }
       if (doc.data().userHandle !== req.user.handle) {
-        return res.status(403).json({ error: "Unauthorized" });
+        return res.status(403).json({ error: 'Unauthorized' });
       } else {
         return document.delete();
       }
     })
     .then(() => {
-      res.json({ message: "Post deleted successfully" });
+      res.json({ message: 'Post deleted successfully' });
     })
     .catch((err) => {
       console.error(err);
