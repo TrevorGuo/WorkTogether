@@ -45,5 +45,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://us-central1-l-project-48aae.cloudfunctions.net/api"
+  "proxy": "http://localhost:5000/l-project-48aae/us-central1/api"
 }

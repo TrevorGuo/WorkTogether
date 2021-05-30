@@ -15,10 +15,14 @@ import {
 import axios from 'axios';
 
 // Get all posts
-export const getPosts = () => (dispatch) => {
+export const getPosts = (groupHandle) => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios
-    .get('/posts')
+    .get('/posts', {
+      params: {
+        groupHandle: groupHandle,
+      }
+    })
     .then((res) => {
       dispatch({
         type: SET_POSTS,
