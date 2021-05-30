@@ -49,7 +49,6 @@ app.get('/groups', getGroup);
 app.post('/groups', FBAuth,createGroup);
 app.post('/groups',FBAuth,joinGroup);
 app.post('/groups',FBAuth,leaveGroup);
-app.post('/groups',FBAuth,joinGroup);
 app.delete('/groups',FBAuth,deleteGroup);
 
 // users routes
