@@ -1,130 +1,91 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import PropTypes from 'prop-types';
 import MyButton from '../../util/MyButton';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import MuiLink from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import LocationOn from '@material-ui/icons/LocationOn';
-import LinkIcon from '@material-ui/icons/Link';
-import CalendarToday from '@material-ui/icons/CalendarToday';
-import EditIcon from '@material-ui/icons/Edit';
-import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
-import GroupAdd from '@material-ui/icons/GroupAdd';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { connect } from 'react-redux';
-import { uploadImage } from '../../redux/actions/userActions';
 
-const styles = (theme) => ({
-  ...theme.spreadThis,
-  ...theme.profileSpread,
-});
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import ChatIcon from '@material-ui/icons/Chat';
+import FavoriteIcon from '@material-ui/icons/Chat';
+import FavoriteBorder from '@material-ui/icons/Chat';
+
+import { connect } from 'react-redux';
+
+const styles = {
+  profileImage: {
+    width: 100,
+    height: 100,
+    objectFit: 'cover',
+    maxWidth: '50%',
+    borderRadius: '50%',
+    margin: '15px 0px auto 10px',
+  },
+  card: {
+    position: 'relative',
+    display: 'flex',
+    marginBottom: 20,
+    marginLeft: 30,
+  },
+  content: {
+    padding: 25,
+    objectFit: 'cover',
+  },
+};
 
 class Group extends Component {
-  handleImageChange = (event) => {
-    const image = event.target.files[0];
-    const formData = new FormData();
-    formData.append('image', image, image.name);
-    this.props.uploadImage(formData);
-  };
-  handleEditPicture = () => {
-    const fileInput = document.getElementById('imageInput');
-    fileInput.click();
-  };
-  handleJoinGroup = () => {
-
-  }
-  handleLeaveGroup = () => {
-
-  }
-
-  handleDeleteGroup = () => {
-
-  }
-
-
   render() {
     const {
       classes,
       group: {
-        credentials: { handle = "Group Name", createdAt, imageUrl, bio = "Our bio/goals", location = "UCLA"},
-        loading,
-        joined,
+        body,
+        createdAt,
+        groupImage,
+        groupHandle,
       },
     } = this.props;
-
-    let groupProfileMarkup = !loading ? (
-      (
-        <Paper className={classes.paper}>
-          <div className={classes.profile}>
-            <div className='image-wrapper'>
-              <img src={imageUrl} alt='Group profile' className='profile-image' />
-              <input
-                type='file'
-                id='imageInput'
-                hidden='hidden'
-                onChange={this.handleImageChange}
-              />
-              {/* Change to edit group profile */}
-              {/* <MyButton
-                tip='Edit profile picture'
-                onClick={this.handleEditPicture}
-                btnClassName='button'
-              >
-                <EditIcon color='primary' />
-              </MyButton> */}
-            </div>
-            <hr />
-            <div className='profile-details'>
-              <MuiLink
-                component={Link}
-                to={`/groups/${handle}`}
-                color='primary'
-                variant='h5'
-              >
-                {handle}
-              </MuiLink>
-              <hr />
-              {bio && <Typography variant='body2'>{bio}</Typography>}
-              <hr />
-              {location && (
-                <Fragment>
-                  <LocationOn color='primary' /> <span>{location}</span>
-                  <hr />
-                </Fragment>
-              )}
-              <CalendarToday color='primary' />{' '}
-              <span>Created {dayjs(createdAt).format('MMM YYYY')}</span>
-            </div>
-            <MyButton tip='Leave Group' onClick={this.handleLeaveGroup}>
-              <GroupAdd color='primary' />
-            </MyButton>
-          </div>
-        </Paper>
-      )
-    ) : (
-      <CircularProgress size={30} className={classes.progress} />
+    return (
+      <Card className={classes.card}>
+        <img src={groupImage} alt='Group Image' className={classes.profileImage} />
+        
+        <CardContent className={classes.content}>
+          <Typography
+            variant='h5'
+            component={Link}
+            to={`/groups/${groupHandle}`}
+            color='primary'
+          >
+              {groupHandle}
+          </Typography>
+          <Typography
+            variant='body2'
+            color='textSecondary'
+          >
+            Created {dayjs(createdAt).format('MMM D, YYYY')}
+          </Typography>
+          <Typography
+            variant='body1'
+          >
+            {body}
+          </Typography>
+        </CardContent>
+      </Card>
     );
-
-    return groupProfileMarkup;
   }
 }
 
 Group.propTypes = {
-  // Add join and leave group
-  uploadImage: PropTypes.func.isRequired,
-  group: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
-};
+  
+}
 
 const mapStateToProps = (state) => ({
-  group: state.group,
+  
 });
 
-const mapActionsToProps = { uploadImage };
+const mapActionsToProps = {}
 
 export default connect(
   mapStateToProps,

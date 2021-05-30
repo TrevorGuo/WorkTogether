@@ -9,7 +9,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import AddIcon from '@material-ui/icons/Add';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 // Redux stuff
 import { connect } from 'react-redux';
@@ -17,6 +18,7 @@ import { uploadPost, clearErrors } from '../../redux/actions/dataActions';
 
 const styles = (theme) => ({
   ...theme.spreadThis,
+  ...theme.profileSpread,
   submitButton: {
     position: 'relative',
     float: 'right',
@@ -72,9 +74,21 @@ class UploadPost extends Component {
     } = this.props;
     return (
       <Fragment>
-        <MyButton onClick={this.handleOpen} tip='Make a Post!'>
-          <AddIcon />
-        </MyButton>
+        <Paper className={classes.paper}>
+          <Typography variant='body2' align='center'>
+            Join a group to the left, or create your own!
+          </Typography>
+          <div className={classes.buttons}>
+            <br />
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={this.handleOpen}
+            >
+              Create Group
+            </Button>
+          </div>
+        </Paper>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}

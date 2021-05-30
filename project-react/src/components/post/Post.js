@@ -11,7 +11,6 @@ import LikeButton from './LikeButton';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import ChatIcon from '@material-ui/icons/Chat';
 import FavoriteIcon from '@material-ui/icons/Chat';
@@ -101,11 +100,6 @@ class Post extends Component {
     return (
       <Card className={classes.card}>
         <img src={userImage} alt='Profile' className={classes.profileImage} />
-        {/* <CardMedia
-          image={userImage}
-          title='Profile image'
-          className={classes.image}
-        /> */}
         <CardContent className={classes.content}>
           <Typography
             variant='h5'

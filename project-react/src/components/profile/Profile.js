@@ -10,7 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import MuiLink from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import LocationOn from '@material-ui/icons/LocationOn';
-import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
@@ -41,7 +40,7 @@ class Profile extends Component {
     const {
       classes,
       user: {
-        credentials: { handle, createdAt, imageUrl, bio, location, },
+        credentials: { handle, createdAt, imageUrl, bio, location, gHandle },
         loading,
         authenticated,
       },
@@ -75,6 +74,15 @@ class Profile extends Component {
                 variant='h5'
               >
                 @{handle}
+              </MuiLink>
+              <hr />
+              <MuiLink
+                component={Link}
+                to={`/groups/${gHandle}`}
+                color='primary'
+                variant='h6'
+              >
+                {gHandle}
               </MuiLink>
               <hr />
               {bio && <Typography variant='body2'>{bio}</Typography>}

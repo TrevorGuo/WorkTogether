@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getPosts } from '../redux/actions/dataActions';
-import { getUserData } from '../redux/actions/userActions';
 import Post from '../components/post/Post';
 import Profile from '../components/profile/Profile';
 
@@ -47,4 +46,4 @@ const mapStateToProps = (state) => ({
   data: state.data,
 });
 
-export default connect(mapStateToProps, { getPosts, getUserData })(home);
+export default connect(mapStateToProps, { getPosts })(home);

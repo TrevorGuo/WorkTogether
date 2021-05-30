@@ -11,6 +11,7 @@ import {
   STOP_LOADING_UI,
   SET_POST,
   SUBMIT_COMMENT,
+  SET_GROUPS,
 } from '../types';
 import axios from 'axios';
 
@@ -28,6 +29,7 @@ export const getPosts = (groupHandle) => (dispatch) => {
         type: SET_POSTS,
         payload: res.data,
       });
+      console.log(res.data);
     })
     .catch((err) => {
       dispatch({
@@ -120,6 +122,25 @@ export const deletePost = (postId) => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const getGroups = () => (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .get('/groups')
+    .then((res) => {
+      dispatch({
+        type: SET_GROUPS,
+        payload: res.data,
+      });
+      console.log(res.data);
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_GROUPS,
+        payload: [],
+      });
+    });
+}
 
 export const getUserData = (userHandle) => (dispatch) => {
   dispatch({ type: LOADING_DATA });

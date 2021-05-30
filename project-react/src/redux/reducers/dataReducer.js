@@ -7,11 +7,15 @@ import {
   SET_POST,
   UPLOAD_POST,
   SUBMIT_COMMENT,
+  SET_GROUPS,
+  SET_GROUP,
 } from '../types';
 
 const initialState = {
   posts: [],
   post: {},
+  groups: [],
+  group: {},
   loading: false,
 };
 
@@ -69,6 +73,17 @@ export default function (state = initialState, action) {
           ...state.post,
           comments: [action.payload, ...state.post.comments],
         },
+      };
+    case SET_GROUPS:
+      return {
+        ...state,
+        groups: action.payload,
+        loading: false
+      };
+    case SET_GROUP:
+      return {
+        ...state,
+        group: action.payload,
       };
     default:
       return state;
