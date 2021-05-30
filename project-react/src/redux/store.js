@@ -4,6 +4,7 @@ import thunk from "redux-thunk";
 import userReducer from "./reducers/userReducer";
 import dataReducer from "./reducers/dataReducer";
 import uiReducer from "./reducers/uiReducer";
+import groupReducer from "./reducers/groupReducer";
 
 const initialState = {};
 
@@ -13,6 +14,7 @@ const reducers = combineReducers({
   user: userReducer,
   data: dataReducer,
   UI: uiReducer,
+  group: groupReducer,
 });
 
 const store = createStore(

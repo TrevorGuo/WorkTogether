@@ -15,7 +15,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
-import { logoutUser, uploadImage } from '../../redux/actions/userActions';
+import { uploadImage } from '../../redux/actions/userActions';
 
 const styles = (theme) => ({
   ...theme.spreadThis,
@@ -33,25 +33,23 @@ class Group extends Component {
     const fileInput = document.getElementById('imageInput');
     fileInput.click();
   };
-  handleLogout = () => {
-    this.props.logoutUser();
-  };
+
   render() {
     const {
       classes,
-      user: {
-        credentials: { handle, createdAt, imageUrl, bio, website, location },
+      group: {
+        credentials: { handle = "Group Name", createdAt, imageUrl, bio = "Our bio/goals", location = "UCLA"},
         loading,
         authenticated,
       },
     } = this.props;
 
-    let profileMarkup = !loading ? (
-      authenticated ? (
+    let groupProfileMarkup = !loading ? (
+      (
         <Paper className={classes.paper}>
           <div className={classes.profile}>
             <div className='image-wrapper'>
-              <img src={imageUrl} alt='profile' className='profile-image' />
+              <img src={imageUrl} alt='Group profile' className='profile-image' />
               <input
                 type='file'
                 id='imageInput'
@@ -71,11 +69,11 @@ class Group extends Component {
             <div className='profile-details'>
               <MuiLink
                 component={Link}
-                to={`/users/${handle}`}
+                to={`/groups/${handle}`}
                 color='primary'
                 variant='h5'
               >
-                @{handle}
+                {handle}
               </MuiLink>
               <hr />
               {bio && <Typography variant='body2'>{bio}</Typography>}
@@ -83,16 +81,6 @@ class Group extends Component {
               {location && (
                 <Fragment>
                   <LocationOn color='primary' /> <span>{location}</span>
-                  <hr />
-                </Fragment>
-              )}
-              {website && (
-                <Fragment>
-                  <LinkIcon color='primary' />
-                  <a href={website} target='_blank' rel='noopener noreferrer'>
-                    {' '}
-                    {website}
-                  </a>
                   <hr />
                 </Fragment>
               )}
@@ -105,52 +93,27 @@ class Group extends Component {
             </MyButton> */}
           </div>
         </Paper>
-      ) : (
-        <Paper className={classes.paper}>
-          <Typography variant='body2' align='center'>
-            No profile found, please login again
-          </Typography>
-          <div className={classes.buttons}>
-            <Button
-              variant='contained'
-              color='primary'
-              component={Link}
-              to='/login'
-            >
-              Login
-            </Button>
-            <Button
-              variant='contained'
-              color='secondary'
-              component={Link}
-              to='/signup'
-            >
-              Signup
-            </Button>
-          </div>
-        </Paper>
       )
     ) : (
       <CircularProgress size={30} className={classes.progress} />
     );
 
-    return profileMarkup;
+    return groupProfileMarkup;
   }
 }
 
-const mapStateToProps = (state) => ({
-  user: state.user,
-});
-
-const mapActionsToProps = { logoutUser, uploadImage };
-
 Group.propTypes = {
-  // change to leave group
-  // logoutUser: PropTypes.func.isRequired,
+  // Add join and leave group
   uploadImage: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  group: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  group: state.group,
+});
+
+const mapActionsToProps = { uploadImage };
 
 export default connect(
   mapStateToProps,

@@ -33,7 +33,6 @@ class login extends Component {
     };
   }
 
-  //MIGHT NOT WORK?
   static getDerivedStateFromProps(nextProps) {
     if (nextProps.UI.errors) {
       return { errors: nextProps.UI.errors };
@@ -73,7 +72,7 @@ class login extends Component {
               id="email"
               name="email"
               type="email"
-              label="Username or email"
+              label="Email"
               className={classes.textField}
               helperText={errors.email}
               error={errors.email ? true : false}

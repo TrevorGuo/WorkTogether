@@ -52,7 +52,6 @@ class EditDetails extends Component {
   mapUserDetailsToState = (credentials) => {
     this.setState({
       bio: credentials.bio ? credentials.bio : '',
-      website: credentials.website ? credentials.website : '',
       location: credentials.location ? credentials.location : '',
     });
   };
@@ -76,7 +75,7 @@ class EditDetails extends Component {
   handleSubmit = () => {
     const userDetails = {
       bio: this.state.bio,
-      website: this.state.website,
+      website: '',
       location: this.state.location,
     };
     this.props.editUserDetails(userDetails);
@@ -111,16 +110,6 @@ class EditDetails extends Component {
                 placeholder='A short bio about yourself'
                 className={classes.textField}
                 value={this.state.bio}
-                onChange={this.handleChange}
-                fullWidth
-              />
-              <TextField
-                name='website'
-                type='text'
-                label='Website'
-                placeholder='Your personal/professinal website'
-                className={classes.textField}
-                value={this.state.website}
                 onChange={this.handleChange}
                 fullWidth
               />

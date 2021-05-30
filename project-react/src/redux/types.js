@@ -21,5 +21,5 @@ export const UPLOAD_POST = 'UPLOAD_POST';
 export const SUBMIT_COMMENT = 'SUBMIT_COMMENT';
 
 //Group reducers
-export const JOIN_GROUP = 'JOIN_GROUP';
-export const LEAVE_GROUP = 'LEAVE_GROUP';
+export const ADD_USER = 'ADD_USER';
+export const REMOVE_USER = 'REMOVE_USER';

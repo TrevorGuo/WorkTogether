@@ -28,6 +28,7 @@ const styles = (theme) => ({
     height: 200,
     borderRadius: '50%',
     objectFit: 'cover',
+    marginTop: 20
   },
   dialogContent: {
     padding: 30,
@@ -45,6 +46,9 @@ const styles = (theme) => ({
     marginTop: 50,
     marginBottom: 50,
   },
+  profile: {
+    marginTop: 35
+  }
 });
 
 class PostDialog extends Component {
@@ -86,11 +90,11 @@ class PostDialog extends Component {
         <CircularProgress size={200} thickness={2} />
       </div>
     ) : (
-      <Grid container spacing={10}>
+      <Grid container spacing={10} >
         <Grid item sm={5}>
           <img src={userImage} alt='Profile' className={classes.profileImage} />
         </Grid>
-        <Grid item sm={7}>
+        <Grid item sm={7} className={classes.profile}>
           <Typography
             component={Link}
             color='primary'
