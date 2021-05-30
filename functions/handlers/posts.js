@@ -17,8 +17,11 @@ Steps to implement groups:
 
 */
 exports.getAllPosts = (req, res) => {
+  if (req.query.groupHandle.trim() === '') {
+    return res.status(400).json({ error: 'User not part of a group' });
+  }
   db.collection("posts") 
-    .where("groupHandle", "==", req.user.gHandle)
+    .where("groupHandle", "==", req.query.groupHandle)
     .orderBy("createdAt", "desc")
     .get()
     .then((data) => {

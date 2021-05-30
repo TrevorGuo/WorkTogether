@@ -1,5 +1,5 @@
 module.exports = {
-  apiKey: 'AIzaSyB3A0_5o-q6jVhx2XG5hipQWG3IKjmAC8g',
+  apiKey: 'AIzaSyDbf1HHwFAUZfnsdL8w2BIcZNZJY3tBxo4',
   authDomain: 'l-project-48aae.firebaseapp.com',
   projectId: 'l-project-48aae',
   storageBucket: 'l-project-48aae.appspot.com',

@@ -21,8 +21,10 @@ exports.createGroup = (req, res) => {
       const resGroup = newGroup;
       resGroup.groupId = doc.id;
       res.json(resGroup);
-      req.user.groupId = doc.id;
-      req.user.gHandle = req.body.handle;
+      req.user.update({
+        groupId: doc.id,
+        gHandle: req.body.handle,
+      });
     })
     .catch((err) => {
       res.status(500).json({ error: "something went wrong" });
@@ -90,8 +92,8 @@ exports.leaveGroup = (req, res) => {
             users: firebase.firestore.FieldValue.arrayRemove(req.user)
         });
         req.user.update({
-            groupId: null,
-            gHandle: null
+            groupId: '',
+            gHandle: ''
         });
     }
 };
@@ -115,8 +117,8 @@ exports.leaveGroup = (req, res) => {
         else {
             document.users.forEach((user) => {
                 user.update({
-                    groupId: null,
-                    gHandle: null
+                    groupId: '',
+                    gHandle: ''
                 });
               });
           return document.delete();

@@ -59,7 +59,6 @@ app.post('/user', FBAuth, addUserDetails);
 app.get('/user', FBAuth, getAuthenticatedUser);
 app.get('/user/:handle', getUserDetails);
 app.post('/notifications', FBAuth, markNotificationsRead);
-app.post('/group')
 
 exports.api = functions.https.onRequest(app);
 
