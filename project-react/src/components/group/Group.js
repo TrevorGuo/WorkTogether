@@ -13,6 +13,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
+import GroupAdd from '@material-ui/icons/GroupAdd';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import { uploadImage } from '../../redux/actions/userActions';
@@ -33,6 +34,17 @@ class Group extends Component {
     const fileInput = document.getElementById('imageInput');
     fileInput.click();
   };
+  handleJoinGroup = () => {
+
+  }
+  handleLeaveGroup = () => {
+
+  }
+
+  handleDeleteGroup = () => {
+
+  }
+
 
   render() {
     const {
@@ -40,7 +52,6 @@ class Group extends Component {
       group: {
         credentials: { handle = "Group Name", createdAt, imageUrl, bio = "Our bio/goals", location = "UCLA"},
         loading,
-        authenticated,
       },
     } = this.props;
 
@@ -87,10 +98,9 @@ class Group extends Component {
               <CalendarToday color='primary' />{' '}
               <span>Created {dayjs(createdAt).format('MMM YYYY')}</span>
             </div>
-            {/* LEAVE GROUP BUTTON
-            <MyButton tip='Logout' onClick={this.handleLogout}>
-              <KeyboardReturn color='primary' />
-            </MyButton> */}
+            <MyButton tip='Leave Group' onClick={this.handleLeaveGroup}>
+              <GroupAdd color='primary' />
+            </MyButton>
           </div>
         </Paper>
       )

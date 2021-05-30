@@ -45,7 +45,6 @@ const styles = {
 class EditDetails extends Component {
   state = {
     bio: '',
-    website: '',
     location: '',
     open: false,
   };
@@ -75,7 +74,6 @@ class EditDetails extends Component {
   handleSubmit = () => {
     const userDetails = {
       bio: this.state.bio,
-      website: '',
       location: this.state.location,
     };
     this.props.editUserDetails(userDetails);

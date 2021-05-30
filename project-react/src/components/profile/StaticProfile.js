@@ -48,7 +48,7 @@ const styles = (theme) => ({
 const StaticProfile = (props) => {
   const {
     classes,
-    profile: { handle, createdAt, imageUrl, bio, website, location },
+    profile: { handle, createdAt, imageUrl, bio, location },
   } = props;
 
   return (
@@ -73,16 +73,6 @@ const StaticProfile = (props) => {
           {location && (
             <Fragment>
               <LocationOn color="primary" /> <span>{location}</span>
-              <hr />
-            </Fragment>
-          )}
-          {website && (
-            <Fragment>
-              <LinkIcon color="primary" />
-              <a href={website} target="_blank" rel="noopener noreferrer">
-                {" "}
-                {website}
-              </a>
               <hr />
             </Fragment>
           )}

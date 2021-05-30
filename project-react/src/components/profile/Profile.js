@@ -41,7 +41,7 @@ class Profile extends Component {
     const {
       classes,
       user: {
-        credentials: { handle, createdAt, imageUrl, bio, website, location },
+        credentials: { handle, createdAt, imageUrl, bio, location, },
         loading,
         authenticated,
       },

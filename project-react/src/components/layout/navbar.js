@@ -11,8 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from '@material-ui/icons/Notifications';
-import Icon from '@mdi/react';
-import { mdiAccountGroup } from '@mdi/js';
+import Group from '@material-ui/icons/Group';
 
 class Navbar extends Component {
   render() {
@@ -30,7 +29,7 @@ class Navbar extends Component {
               </Link>
               <Link to='/groups'>
                 <MyButton tip='Groups'>
-                  <Icon path={mdiAccountGroup} size={1} />
+                  <Group />
                 </MyButton>
               </Link>
               <MyButton tip='Notifications'>
