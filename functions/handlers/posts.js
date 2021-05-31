@@ -17,12 +17,12 @@ Steps to implement groups:
 
 */
 exports.getAllPosts = (req, res) => {
-  if (req.query.groupHandle.trim() === '') {
+  if (req.user.gHandle.trim() === '') {
     return res.status(400).json({ error: 'User not part of a group' });
   }
-  db.collection("posts") 
-    .where("groupHandle", "==", req.query.groupHandle)
-    .orderBy("createdAt", "desc")
+  db.collection('posts')
+    .where('groupHandle', '==', req.user.gHandle)
+    .orderBy('createdAt', 'desc')
     .get()
     .then((data) => {
       let posts = [];
@@ -50,7 +50,7 @@ exports.uploadOnePost = (req, res) => {
   if (req.body.body.trim() === '') {
     return res.status(400).json({ body: 'Body must not be empty' });
   }
-
+  console.log(req.user);
   const newPost = {
     body: req.body.body,
     userHandle: req.user.handle,

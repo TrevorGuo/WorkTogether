@@ -32,8 +32,33 @@ exports.createGroup = (req, res) => {
     });
 };
 
+exports.getAllGroups = (req, res) => {
+  db.collection("groups") 
+    .orderBy("createdAt", "desc")
+    .get()
+    .then((data) => {
+      let groups = [];
+      data.forEach((doc) => {
+        groups.push({
+          groupId: doc.id,
+          admin: doc.data().admin,
+          body: doc.data().body,
+          groupHandle: doc.data().groupHandle,
+          createdAt: doc.data().createdAt,
+          groupImage: doc.data().groupImage,
+          userCount: doc.data().userCount,
+          users: doc.data().users,
+        });
+      });
+      return res.json(groups);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: err.code });
+    });
+}
 
-// Fetch one post
+// Fetch one group
 exports.getGroup = (req, res) => {
     let groupData = {};
     db.doc(`/groups/${req.params.groupId}`)
