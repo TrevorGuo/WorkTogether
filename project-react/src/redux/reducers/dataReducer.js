@@ -9,6 +9,7 @@ import {
   SUBMIT_COMMENT,
   SET_GROUPS,
   SET_GROUP,
+  CREATE_GROUP,
 } from '../types';
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
+  let index = 0;
   switch (action.type) {
     case LOADING_DATA:
       return {
@@ -39,7 +41,7 @@ export default function (state = initialState, action) {
       };
     case LIKE_POST:
     case UNLIKE_POST:
-      let index = state.posts.findIndex(
+      index = state.posts.findIndex(
         (post) => post.postId === action.payload.postId
       );
       state.posts[index] = action.payload;
@@ -83,6 +85,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         group: action.payload,
+      };
+    case CREATE_GROUP:
+      return {
+        ...state,
+        groups: [action.payload, ...state.groups],
       };
     default:
       return state;

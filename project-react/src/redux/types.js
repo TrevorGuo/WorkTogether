@@ -20,9 +20,9 @@ export const DELETE_POST = 'DELETE_POST';
 export const UPLOAD_POST = 'UPLOAD_POST';
 export const SUBMIT_COMMENT = 'SUBMIT_COMMENT';
 
-
 //Group reducers
 export const ADD_USER = 'ADD_USER';
 export const REMOVE_USER = 'REMOVE_USER';
 export const SET_GROUPS = 'SET_GROUPS';
 export const SET_GROUP = 'SET_GROUP';
+export const CREATE_GROUP = 'CREATE_GROUP';

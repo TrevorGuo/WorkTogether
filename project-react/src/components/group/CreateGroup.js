@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 // Redux stuff
 import { connect } from 'react-redux';
-import { uploadPost, clearErrors } from '../../redux/actions/dataActions';
+import { createGroup, clearErrors } from '../../redux/actions/dataActions';
 
 const styles = (theme) => ({
   ...theme.spreadThis,
@@ -37,9 +37,10 @@ const styles = (theme) => ({
   },
 });
 
-class UploadPost extends Component {
+class CreateGroup extends Component {
   state = {
     open: false,
+    handle: '',
     body: '',
     errors: {},
   };
@@ -67,7 +68,12 @@ class UploadPost extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.uploadPost({ body: this.state.body });
+    console.log(this.state.handle);
+    console.log(this.state.body);
+    this.props.createGroup({
+      groupHandle: this.state.handle,
+      body: this.state.body,
+    });
   };
   render() {
     const { errors } = this.state;
@@ -105,16 +111,25 @@ class UploadPost extends Component {
           >
             <CloseIcon />
           </MyButton>
-          <DialogTitle className={classes.title}>Make a new post</DialogTitle>
+          <DialogTitle className={classes.title}>Make a new group</DialogTitle>
           <DialogContent>
             <form onSubmit={this.handleSubmit}>
               <TextField
+                name='handle'
+                type='text'
+                label='Group Name'
+                error={errors.body ? true : false}
+                className={classes.textField}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
                 name='body'
                 type='text'
-                label='POST!!'
+                label='Bio'
                 multiline
                 rows='3'
-                placeholder='Share a post with your friends'
+                placeholder='What is your group for?'
                 error={errors.body ? true : false}
                 helperText={errors.body}
                 className={classes.textField}
@@ -144,8 +159,8 @@ class UploadPost extends Component {
   }
 }
 
-UploadPost.propTypes = {
-  uploadPost: PropTypes.func.isRequired,
+CreateGroup.propTypes = {
+  createGroup: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired,
 };
@@ -154,6 +169,6 @@ const mapStateToProps = (state) => ({
   UI: state.UI,
 });
 
-export default connect(mapStateToProps, { uploadPost, clearErrors })(
-  withStyles(styles)(UploadPost)
+export default connect(mapStateToProps, { createGroup, clearErrors })(
+  withStyles(styles)(CreateGroup)
 );
