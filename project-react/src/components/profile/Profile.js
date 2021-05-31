@@ -75,14 +75,14 @@ class Profile extends Component {
               >
                 @{handle}
               </MuiLink>
-              <hr />
+              <br />
               <MuiLink
                 component={Link}
                 to={`/groups/${gHandle}`}
                 color='primary'
-                variant='h6'
+                variant='body2'
               >
-                {gHandle}
+                {' ' + gHandle}
               </MuiLink>
               <hr />
               {bio && <Typography variant='body2'>{bio}</Typography>}

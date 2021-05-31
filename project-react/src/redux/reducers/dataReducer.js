@@ -33,7 +33,6 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case SET_POST:
-      console.log(action.payload);
       return {
         ...state,
         post: action.payload,
@@ -78,7 +77,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         groups: action.payload,
-        loading: false
+        loading: false,
       };
     case SET_GROUP:
       return {

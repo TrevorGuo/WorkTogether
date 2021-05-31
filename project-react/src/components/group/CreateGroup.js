@@ -24,6 +24,9 @@ const styles = (theme) => ({
     float: 'right',
     marginTop: 10,
   },
+  title: {
+    margin: '0 auto',
+  },
   progressSpinner: {
     position: 'absolute',
   },
@@ -102,7 +105,7 @@ class UploadPost extends Component {
           >
             <CloseIcon />
           </MyButton>
-          <DialogTitle>Make a new post</DialogTitle>
+          <DialogTitle className={classes.title}>Make a new post</DialogTitle>
           <DialogContent>
             <form onSubmit={this.handleSubmit}>
               <TextField

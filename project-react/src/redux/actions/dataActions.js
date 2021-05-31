@@ -16,20 +16,15 @@ import {
 import axios from 'axios';
 
 // Get all posts
-export const getPosts = (groupHandle) => (dispatch) => {
+export const getPosts = () => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios
-    .get('/posts', {
-      params: {
-        groupHandle: groupHandle,
-      }
-    })
+    .get('/posts')
     .then((res) => {
       dispatch({
         type: SET_POSTS,
         payload: res.data,
       });
-      console.log(res.data);
     })
     .catch((err) => {
       dispatch({
@@ -99,21 +94,22 @@ export const unlikePost = (postId) => (dispatch) => {
 };
 //Submit a Comment
 export const submitComment = (postID, commentData) => (dispatch) => {
-  axios.post(`/post/${postID}/comment`, commentData)
-  .then(res => {
-    dispatch({
-      type: SUBMIT_COMMENT,
-      payload: res.data
+  axios
+    .post(`/post/${postID}/comment`, commentData)
+    .then((res) => {
+      dispatch({
+        type: SUBMIT_COMMENT,
+        payload: res.data,
+      });
+      dispatch(clearErrors());
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data,
+      });
     });
-    dispatch(clearErrors())
-  })
-  .catch(err => {
-    dispatch({
-      type: SET_ERRORS,
-      payload: err.response.data
-    });
-  });
-}
+};
 export const deletePost = (postId) => (dispatch) => {
   axios
     .delete(`/post/${postId}`)
@@ -132,7 +128,6 @@ export const getGroups = () => (dispatch) => {
         type: SET_GROUPS,
         payload: res.data,
       });
-      console.log(res.data);
     })
     .catch((err) => {
       dispatch({
@@ -140,7 +135,7 @@ export const getGroups = () => (dispatch) => {
         payload: [],
       });
     });
-}
+};
 
 export const getUserData = (userHandle) => (dispatch) => {
   dispatch({ type: LOADING_DATA });

@@ -11,7 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 class home extends Component {
   componentDidMount() {
-    this.props.getPosts(this.props.user.credentials.gHandle);
+    this.props.getPosts();
   }
   render() {
     const { posts, loading } = this.props.data;

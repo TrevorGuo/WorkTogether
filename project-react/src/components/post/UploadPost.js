@@ -14,13 +14,17 @@ import CloseIcon from '@material-ui/icons/Close';
 // Redux stuff
 import { connect } from 'react-redux';
 import { uploadPost, clearErrors } from '../../redux/actions/dataActions';
+import AuthRoute from '../../util/AuthRoute';
 
 const styles = (theme) => ({
   ...theme.spreadThis,
   submitButton: {
     position: 'relative',
-    float: 'right',
     marginTop: 10,
+    left: '42%',
+  },
+  title: {
+    margin: '0 auto',
   },
   progressSpinner: {
     position: 'absolute',
@@ -88,16 +92,16 @@ class UploadPost extends Component {
           >
             <CloseIcon />
           </MyButton>
-          <DialogTitle>Make a new post</DialogTitle>
+          <DialogTitle className={classes.title}>Make a new post</DialogTitle>
           <DialogContent>
             <form onSubmit={this.handleSubmit}>
               <TextField
                 name='body'
                 type='text'
-                label='POST!!'
+                label='What have you been up to?'
                 multiline
                 rows='3'
-                placeholder='Share a post with your friends'
+                placeholder='Share with your friends!'
                 error={errors.body ? true : false}
                 helperText={errors.body}
                 className={classes.textField}
