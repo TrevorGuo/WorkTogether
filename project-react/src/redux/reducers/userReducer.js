@@ -2,10 +2,10 @@ import {
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
   LOADING_USER,
+  SET_USER,
   LIKE_POST,
   UNLIKE_POST,
 } from '../types';
-import { SET_USER } from '../types';
 
 const initialState = {
   authenticated: false,

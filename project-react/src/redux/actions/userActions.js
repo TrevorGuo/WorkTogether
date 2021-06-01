@@ -76,6 +76,7 @@ export const uploadImage = (formData) => (dispatch) => {
 };
 
 export const addUser = (groupHandle) => (dispatch) => {
+  dispatch({ type: LOADING_USER });
   axios
     .post('/groups/join', groupHandle)
     .then(() => {
