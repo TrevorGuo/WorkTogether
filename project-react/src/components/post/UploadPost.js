@@ -92,6 +92,7 @@ class UploadPost extends Component {
           >
             <CloseIcon />
           </MyButton>
+
           <DialogTitle className={classes.title}>Make a new post</DialogTitle>
           <DialogContent>
             <form onSubmit={this.handleSubmit}>

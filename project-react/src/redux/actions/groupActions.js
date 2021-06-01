@@ -7,6 +7,7 @@ import {
   CLEAR_ERRORS,
   LOADING_DATA,
   LOADING_UI,
+  SET_USER,
 } from '../types';
 import { addUser } from './userActions';
 import { clearErrors } from './dataActions';

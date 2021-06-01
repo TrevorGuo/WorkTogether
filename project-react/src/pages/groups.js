@@ -32,7 +32,6 @@ class groups extends Component {
   render() {
     const { groups, loading } = this.props.group;
     const classes = this.props;
-    console.log(groups);
 
     let recentGroupsMarkup = loading ? (
       <CircularProgress size={30} className={classes.progress} />

@@ -76,18 +76,12 @@ export const uploadImage = (formData) => (dispatch) => {
 };
 
 export const addUser = (groupHandle) => (dispatch) => {
-  dispatch({ type: LOADING_USER });
   axios
     .post('/groups/join', groupHandle)
     .then(() => {
       dispatch(getUserData());
     })
-    .catch((err) => {
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data,
-      });
-    });
+    .catch((err) => console.log(err));
 };
 
 export const editUserDetails = (userDetails) => (dispatch) => {

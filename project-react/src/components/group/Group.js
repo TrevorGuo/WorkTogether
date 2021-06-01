@@ -69,13 +69,9 @@ class Group extends Component {
   }
 }
 
-Group.propTypes = {
-  group: PropTypes.object.isRequired,
-};
+Group.propTypes = {};
 
-const mapStateToProps = (state) => ({
-  group: state.group,
-});
+const mapStateToProps = (state) => ({});
 
 const mapActionsToProps = {};
 
