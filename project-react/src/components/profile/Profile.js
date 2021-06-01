@@ -96,16 +96,18 @@ class Profile extends Component {
               <CalendarToday color='primary' />{' '}
               <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
             </div>
-            <MyButton tip='Logout' onClick={this.handleLogout}>
-              <KeyboardReturn color='primary' />
-            </MyButton>
+            <Link to='/login'>
+              <MyButton tip='Logout' onClick={this.handleLogout}>
+                <KeyboardReturn color='primary' />
+              </MyButton>
+            </Link>
             <EditDetails />
           </div>
         </Paper>
       ) : (
         <Paper className={classes.paper}>
           <Typography variant='body2' align='center'>
-            No profile found, please login again
+            No profile found, please login or signup
           </Typography>
           <div className={classes.buttons}>
             <Button
