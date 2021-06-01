@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getGroups } from '../redux/actions/dataActions';
+import { getGroups } from '../redux/actions/groupActions';
 import Group from '../components/group/Group';
 import CreateGroup from '../components/group/CreateGroup';
 
@@ -30,8 +30,9 @@ class groups extends Component {
     this.props.getGroups();
   }
   render() {
-    const { groups, loading } = this.props.data;
+    const { groups, loading } = this.props.group;
     const classes = this.props;
+    console.log(groups);
 
     let recentGroupsMarkup = loading ? (
       <CircularProgress size={30} className={classes.progress} />
@@ -53,13 +54,11 @@ class groups extends Component {
 }
 
 groups.propTypes = {
-  groups: PropTypes.object.isRequired,
-  data: PropTypes.object.isRequired,
+  group: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  groups: state.groups,
-  data: state.data,
+  group: state.group,
 });
 
 const mapActionsToProps = {

@@ -5,6 +5,8 @@ import {
   LOADING_UI,
   SET_UNAUTHENTICATED,
   LOADING_USER,
+  ADD_USER,
+  REMOVE_USER,
 } from '../types';
 import axios from 'axios';
 
@@ -71,6 +73,21 @@ export const uploadImage = (formData) => (dispatch) => {
       dispatch(getUserData());
     })
     .catch((err) => console.log(err));
+};
+
+export const addUser = (groupHandle) => (dispatch) => {
+  dispatch({ type: LOADING_USER });
+  axios
+    .post('/groups/join', groupHandle)
+    .then(() => {
+      dispatch(getUserData());
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data,
+      });
+    });
 };
 
 export const editUserDetails = (userDetails) => (dispatch) => {

@@ -14,14 +14,15 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 // Redux stuff
 import { connect } from 'react-redux';
-import { createGroup, clearErrors } from '../../redux/actions/dataActions';
+import { createGroup } from '../../redux/actions/groupActions';
+import { clearErrors } from '../../redux/actions/dataActions';
 
 const styles = (theme) => ({
   ...theme.spreadThis,
   ...theme.profileSpread,
   submitButton: {
     position: 'relative',
-    float: 'right',
+    left: '42%',
     marginTop: 10,
   },
   title: {
@@ -68,8 +69,6 @@ class CreateGroup extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state.handle);
-    console.log(this.state.body);
     this.props.createGroup({
       groupHandle: this.state.handle,
       body: this.state.body,
@@ -118,7 +117,8 @@ class CreateGroup extends Component {
                 name='handle'
                 type='text'
                 label='Group Name'
-                error={errors.body ? true : false}
+                error={errors.groupHandle ? true : false}
+                helperText={errors.groupHandle}
                 className={classes.textField}
                 onChange={this.handleChange}
                 fullWidth

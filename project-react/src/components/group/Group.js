@@ -40,17 +40,16 @@ class Group extends Component {
   render() {
     const {
       classes,
-      group: {
-        body,
-        createdAt,
-        groupImage,
-        groupHandle,
-      },
+      group: { body, createdAt, groupImage, groupHandle },
     } = this.props;
     return (
       <Card className={classes.card}>
-        <img src={groupImage} alt='Group Image' className={classes.profileImage} />
-        
+        <img
+          src={groupImage}
+          alt='Group Image'
+          className={classes.profileImage}
+        />
+
         <CardContent className={classes.content}>
           <Typography
             variant='h5'
@@ -58,19 +57,12 @@ class Group extends Component {
             to={`/groups/${groupHandle}`}
             color='primary'
           >
-              {groupHandle}
+            {groupHandle}
           </Typography>
-          <Typography
-            variant='body2'
-            color='textSecondary'
-          >
+          <Typography variant='body2' color='textSecondary'>
             Created {dayjs(createdAt).format('MMM D, YYYY')}
           </Typography>
-          <Typography
-            variant='body1'
-          >
-            {body}
-          </Typography>
+          <Typography variant='body1'>{body}</Typography>
         </CardContent>
       </Card>
     );
@@ -78,14 +70,14 @@ class Group extends Component {
 }
 
 Group.propTypes = {
-  
-}
+  group: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = (state) => ({
-  
+  group: state.group,
 });
 
-const mapActionsToProps = {}
+const mapActionsToProps = {};
 
 export default connect(
   mapStateToProps,

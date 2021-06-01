@@ -22,7 +22,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: false,
-        erorrs: null,
+        errors: null,
       };
     case LOADING_UI:
       return {

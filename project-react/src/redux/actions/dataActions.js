@@ -14,6 +14,7 @@ import {
   SET_GROUPS,
   CREATE_GROUP,
 } from '../types';
+
 import axios from 'axios';
 
 // Get all posts
@@ -118,43 +119,6 @@ export const deletePost = (postId) => (dispatch) => {
       dispatch({ type: DELETE_POST, payload: postId });
     })
     .catch((err) => console.log(err));
-};
-
-export const getGroups = () => (dispatch) => {
-  dispatch({ type: LOADING_DATA });
-  axios
-    .get('/groups')
-    .then((res) => {
-      dispatch({
-        type: SET_GROUPS,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      dispatch({
-        type: SET_GROUPS,
-        payload: [],
-      });
-    });
-};
-
-export const createGroup = (newGroup) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
-  axios
-    .post('/groups', newGroup)
-    .then((res) => {
-      dispatch({
-        type: CREATE_GROUP,
-        payload: res.data,
-      });
-      dispatch(clearErrors());
-    })
-    .catch((err) => {
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data,
-      });
-    });
 };
 
 export const getUserData = (userHandle) => (dispatch) => {
