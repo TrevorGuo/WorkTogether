@@ -1,7 +1,6 @@
 const functions = require('firebase-functions');
 const app = require('express')();
 const FBAuth = require('./util/fbAuth');
-console.log(FBAuth);
 
 const cors = require('cors');
 app.use(cors());
@@ -49,8 +48,8 @@ app.post('/post/:postId/comment', FBAuth, commentOnPost);
 app.get('/groups', getAllGroups);
 app.get('/groups/:groupId', getGroup);
 app.post('/groups', FBAuth, createGroup);
-app.post('/groups', FBAuth, joinGroup);
-app.post('/groups', FBAuth, leaveGroup);
+app.post('/groups/join', FBAuth, joinGroup);
+app.post('/groups/leave', FBAuth, leaveGroup);
 app.delete('/groups', FBAuth, deleteGroup);
 
 // users routes

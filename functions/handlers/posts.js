@@ -17,6 +17,8 @@ Steps to implement groups:
 
 */
 exports.getAllPosts = (req, res) => {
+  console.log('Getting all posts');
+
   if (req.user.gHandle.trim() === '') {
     return res.status(400).json({ error: 'User not part of a group' });
   }
@@ -37,6 +39,7 @@ exports.getAllPosts = (req, res) => {
           userImage: doc.data().userImage,
           groupHandle: doc.data().groupHandle,
         });
+        console.log(posts);
       });
       return res.json(posts);
     })

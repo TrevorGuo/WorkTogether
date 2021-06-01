@@ -44,12 +44,11 @@ exports.signup = (req, res) => {
     })
     .then((idToken) => {
       token = idToken;
-      console.log(token);
       const userCredentials = {
         handle: newUser.handle,
         email: newUser.email,
-        groupId: null,
-        gHandle: null,
+        groupId: '',
+        gHandle: '',
         createdAt: new Date().toISOString(),
         //TODO Append token to imageUrl. Work around just add token from image in storage.
         imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
@@ -140,7 +139,6 @@ exports.getUserDetails = (req, res) => {
           createdAt: doc.data().createdAt,
           userHandle: doc.data().userHandle,
           userImage: doc.data().userImage,
-          groupId: doc.data().groupId,
           gHandle: doc.data().gHandle,
           likeCount: doc.data().likeCount,
           commentCount: doc.data().commentCount,
@@ -156,6 +154,7 @@ exports.getUserDetails = (req, res) => {
 };
 // Get own user details
 exports.getAuthenticatedUser = (req, res) => {
+  console.log('Getting user data');
   let userData = {};
   db.doc(`/users/${req.user.handle}`)
     .get()
@@ -216,7 +215,6 @@ exports.uploadImage = (req, res) => {
   let generatedToken = uuid();
 
   busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
-    console.log(fieldname, file, filename, encoding, mimetype);
     if (mimetype !== 'image/jpeg' && mimetype !== 'image/png') {
       return res.status(400).json({ error: 'Wrong file type submitted' });
     }

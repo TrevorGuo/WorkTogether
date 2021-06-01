@@ -1,4 +1,5 @@
 const { admin, db } = require('./admin');
+const firebase = require('firebase');
 
 module.exports = (req, res, next) => {
   let idToken;
@@ -11,7 +12,8 @@ module.exports = (req, res, next) => {
     console.error('No token found');
     return res.status(403).json({ error: 'Unauthorized' });
   }
-
+  // UNCOMMENT BELOW WHEN USING EMULATOR
+  // firebase.auth().useEmulator('http://localhost:9099/');
   admin
     .auth()
     .verifyIdToken(idToken)
