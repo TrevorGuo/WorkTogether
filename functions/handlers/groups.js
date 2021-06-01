@@ -104,9 +104,18 @@ exports.joinGroup = (req, res) => {
           .doc(`groups/${req.body.groupHandle}`)
           .update({ userCount: groupData.userCount, users: groupData.users })
           .then(() => {
-            return db.doc(`users/${req.user.handle}`).update({
-              gHandle: req.body.groupHandle,
-            });
+            db.doc(`users/${req.user.handle}`)
+              .update({
+                gHandle: req.body.groupHandle,
+              })
+              .then(() => {
+                return res.json({ message: 'User added successfully' });
+              })
+              .catch((err) => {
+                return res
+                  .status(500)
+                  .json({ error: "Couldn't update user's group" });
+              });
           })
           .catch((err) => {
             return res.status(500).json({ error: 'Something went wrong' });
