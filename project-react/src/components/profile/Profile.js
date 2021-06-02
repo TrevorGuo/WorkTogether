@@ -67,23 +67,25 @@ class Profile extends Component {
             </div>
             <hr />
             <div className='profile-details'>
-              <MuiLink
+              <Typography
                 component={Link}
                 to={`/users/${handle}`}
                 color='primary'
                 variant='h5'
+                align='center'
               >
-                @{handle}
-              </MuiLink>
+                {handle}
+              </Typography>
               <br />
-              <MuiLink
+              <Typography
                 component={Link}
                 to={`/groups/${gHandle}`}
                 color='primary'
                 variant='body2'
+                align='center'
               >
-                {' ' + gHandle}
-              </MuiLink>
+                {gHandle}
+              </Typography>
               <hr />
               {bio && <Typography variant='body2'>{bio}</Typography>}
               <hr />

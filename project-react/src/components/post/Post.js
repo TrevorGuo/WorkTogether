@@ -78,21 +78,6 @@ class Post extends Component {
         credentials: { handle },
       },
     } = this.props;
-    const likeButton = !authenticated ? (
-      <MyButton tip='like'>
-        <Link to='/login'>
-          <FavoriteBorder color='primary' />
-        </Link>
-      </MyButton>
-    ) : this.likedPost() ? (
-      <MyButton tip='Undo like' onClick={this.unlikePost}>
-        <FavoriteIcon color='primary' />
-      </MyButton>
-    ) : (
-      <MyButton tip='Undo like' onClick={this.likePost}>
-        <FavoriteBorder color='primary' />
-      </MyButton>
-    );
     const deleteButton =
       authenticated && userHandle === handle ? (
         <DeletePost postId={postId} />
@@ -116,15 +101,12 @@ class Post extends Component {
           <Typography variant='body1'>{body}</Typography>
           <LikeButton postId={postId} />
           <span>{likeCount} Likes</span>
-          <MyButton tip=''>
-            <ChatIcon color='primary' />
-          </MyButton>
-          <span>{commentCount} Comments</span>
           <PostDialog
             postId={postId}
             userHandle={userHandle}
             openDialog={this.props.openDialog}
           />
+          <span>{commentCount} Comments</span>
         </CardContent>
       </Card>
     );

@@ -38,8 +38,8 @@ const styles = (theme) => ({
     left: '90%',
   },
   expandButton: {
-    position: 'absolute',
-    left: '90%',
+    position: 'relative',
+    // left: '90%',
   },
   spinnerDiv: {
     textAlign: 'center',
@@ -137,10 +137,10 @@ class PostDialog extends Component {
       <Fragment>
         <MyButton
           onClick={this.handleOpen}
-          tip='Expand post'
+          tip='Comment'
           tipClassName={classes.expandButton}
         >
-          <UnfoldMore color='primary' />
+          <ChatIcon color='primary' />
         </MyButton>
         <Dialog
           open={this.state.open}
