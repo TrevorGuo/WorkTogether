@@ -28,7 +28,7 @@ const styles = (theme) => ({
     height: 200,
     borderRadius: '50%',
     objectFit: 'cover',
-    marginTop: 20
+    marginTop: 20,
   },
   dialogContent: {
     padding: 30,
@@ -38,8 +38,8 @@ const styles = (theme) => ({
     left: '90%',
   },
   expandButton: {
-    position: 'absolution',
-    left: '100%',
+    position: 'absolute',
+    left: '90%',
   },
   spinnerDiv: {
     textAlign: 'center',
@@ -47,15 +47,15 @@ const styles = (theme) => ({
     marginBottom: 50,
   },
   profile: {
-    marginTop: 35
-  }
+    marginTop: 35,
+  },
 });
 
 class PostDialog extends Component {
   state = {
     open: false,
-    oldPath:'',
-    newPath:'',
+    oldPath: '',
+    newPath: '',
   };
 
   componentDidMount() {
@@ -66,18 +66,18 @@ class PostDialog extends Component {
   handleOpen = () => {
     let oldPath = window.location.pathname;
 
-    const{userHandle, postId} = this.props;
+    const { userHandle, postId } = this.props;
     const newPath = `/user/${userHandle}/post/${postId}`;
 
-    if(oldPath==newPath) oldPath = `/user/${userHandle}`;
+    if (oldPath == newPath) oldPath = `/user/${userHandle}`;
 
-    window.history.pushState(null,null,newPath);
+    window.history.pushState(null, null, newPath);
 
     this.setState({ open: true, oldPath, newPath });
     this.props.getPost(this.props.postId);
   };
   handleClose = () => {
-    window.history.pushState(null,null,this.state.oldPath);
+    window.history.pushState(null, null, this.state.oldPath);
     this.setState({ open: false });
     this.props.clearErrors();
   };
@@ -102,7 +102,7 @@ class PostDialog extends Component {
         <CircularProgress size={200} thickness={2} />
       </div>
     ) : (
-      <Grid container spacing={10} >
+      <Grid container spacing={10}>
         <Grid item sm={5}>
           <img src={userImage} alt='Profile' className={classes.profileImage} />
         </Grid>
@@ -123,7 +123,7 @@ class PostDialog extends Component {
           <Typography variant='body1'>{body}</Typography>
           <LikeButton postId={postId} />
           <span>{likeCount} likes</span>
-          <MyButton tip='Comments'>
+          <MyButton tip=''>
             <ChatIcon color='primary' />
           </MyButton>
           <span>{commentCount} comments</span>

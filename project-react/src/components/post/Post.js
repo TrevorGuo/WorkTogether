@@ -116,11 +116,15 @@ class Post extends Component {
           <Typography variant='body1'>{body}</Typography>
           <LikeButton postId={postId} />
           <span>{likeCount} Likes</span>
-          <MyButton tip='Comments'>
+          <MyButton tip=''>
             <ChatIcon color='primary' />
           </MyButton>
           <span>{commentCount} Comments</span>
-          <PostDialog postId={postId} userHandle={userHandle} openDialog={this.props.openDialog} />
+          <PostDialog
+            postId={postId}
+            userHandle={userHandle}
+            openDialog={this.props.openDialog}
+          />
         </CardContent>
       </Card>
     );
