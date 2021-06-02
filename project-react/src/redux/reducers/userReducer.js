@@ -2,9 +2,10 @@ import {
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
   LOADING_USER,
-  SET_USER,
   LIKE_POST,
   UNLIKE_POST,
+  MARK_NOTIFICATIONS_READ,
+  SET_USER,
 } from '../types';
 
 const initialState = {
@@ -52,6 +53,12 @@ export default function (state = initialState, action) {
         likes: state.likes.filter(
           (like) => like.postId !== action.payload.postId
         ),
+      };
+
+    case MARK_NOTIFICATIONS_READ:
+      state.notifications.forEach((not) => (not.read = true));
+      return {
+        ...state,
       };
     default:
       return state;

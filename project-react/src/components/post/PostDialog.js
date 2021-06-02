@@ -24,7 +24,7 @@ import { getPost, clearErrors } from '../../redux/actions/dataActions';
 const styles = (theme) => ({
   ...theme.spreadThis,
   profileImage: {
-    maxWidth: 200,
+    width: 200,
     height: 200,
     borderRadius: '50%',
     objectFit: 'cover',
@@ -54,6 +54,8 @@ const styles = (theme) => ({
 class PostDialog extends Component {
   state = {
     open: false,
+    oldPath:'',
+    newPath:'',
   };
 
   componentDidMount() {
@@ -62,10 +64,20 @@ class PostDialog extends Component {
     }
   }
   handleOpen = () => {
-    this.setState({ open: true });
+    let oldPath = window.location.pathname;
+
+    const{userHandle, postId} = this.props;
+    const newPath = `/user/${userHandle}/post/${postId}`;
+
+    if(oldPath==newPath) oldPath = `/user/${userHandle}`;
+
+    window.history.pushState(null,null,newPath);
+
+    this.setState({ open: true, oldPath, newPath });
     this.props.getPost(this.props.postId);
   };
   handleClose = () => {
+    window.history.pushState(null,null,this.state.oldPath);
     this.setState({ open: false });
     this.props.clearErrors();
   };
