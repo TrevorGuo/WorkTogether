@@ -24,7 +24,7 @@ import { getPost, clearErrors } from '../../redux/actions/dataActions';
 const styles = (theme) => ({
   ...theme.spreadThis,
   profileImage: {
-    maxWidth: 200,
+    width: 200,
     height: 200,
     borderRadius: '50%',
     objectFit: 'cover',
