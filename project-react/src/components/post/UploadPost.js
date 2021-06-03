@@ -14,7 +14,6 @@ import CloseIcon from '@material-ui/icons/Close';
 // Redux stuff
 import { connect } from 'react-redux';
 import { uploadPost, clearErrors } from '../../redux/actions/dataActions';
-import AuthRoute from '../../util/AuthRoute';
 
 const styles = (theme) => ({
   ...theme.spreadThis,
@@ -63,6 +62,7 @@ class UploadPost extends Component {
   };
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
+    console.log(this.state.body);
   };
   handleSubmit = (event) => {
     event.preventDefault();

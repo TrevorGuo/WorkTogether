@@ -48,7 +48,7 @@ const styles = (theme) => ({
 const StaticProfile = (props) => {
   const {
     classes,
-    profile: { handle, createdAt, imageUrl, bio, location },
+    profile: { handle, gHandle, createdAt, imageUrl, bio, location },
   } = props;
 
   return (
@@ -65,7 +65,16 @@ const StaticProfile = (props) => {
             color='primary'
             variant='h5'
           >
-            @{handle}
+            {handle}
+          </Typography>
+          <br />
+          <Typography
+            component={Link}
+            to={`/groups/${gHandle}`}
+            color='primary'
+            variant='body2'
+          >
+            {gHandle}
           </Typography>
           <hr />
           {bio && <Typography variant='body2'>{bio}</Typography>}

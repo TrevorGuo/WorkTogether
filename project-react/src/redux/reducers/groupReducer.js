@@ -20,6 +20,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         users: [...state.users, action.payload],
+        joined: true,
       };
     case REMOVE_USER:
       let index = state.users.findIndex(
@@ -28,6 +29,7 @@ export default function (state = initialState, action) {
       state.posts.splice(index, 1);
       return {
         ...state,
+        joined: false,
       };
     case SET_GROUPS:
       return {

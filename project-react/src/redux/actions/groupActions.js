@@ -13,10 +13,10 @@ import { addUser } from './userActions';
 import { clearErrors } from './dataActions';
 import axios from 'axios';
 
-export const getGroups = () => (dispatch) => {
+export const getGroups = (queryText) => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios
-    .get('/groups')
+    .get('/groups', { params: queryText })
     .then((res) => {
       dispatch({
         type: SET_GROUPS,
@@ -50,21 +50,3 @@ export const createGroup = (newGroup) => (dispatch) => {
       });
     });
 };
-
-// export const addUser = (userName, group) => (dispatch) => {
-//   dispatch({ type: LOADING_UI });
-//   axios
-//     .post('/groups', userData)
-//     .then((res) => {
-//       console.log(res.data);
-//       dispatch(getUserData());
-//       dispatch({ type: CLEAR_ERRORS });
-//       history.push('/');
-//     })
-//     .catch((err) => {
-//       dispatch({
-//         type: SET_ERRORS,
-//         payload: err.response.data,
-//       });
-//     });
-// };

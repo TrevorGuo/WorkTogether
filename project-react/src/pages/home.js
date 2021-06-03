@@ -19,6 +19,10 @@ class home extends Component {
 
     let recentPostsMarkup = loading ? (
       <CircularProgress size={30} className={classes.progress} />
+    ) : posts.length === 0 ? (
+      <div>
+        This group doesn't have any posts yet... <br /> Be the first!
+      </div>
     ) : (
       posts.map((post) => <Post key={post.postId} post={post} />)
     );

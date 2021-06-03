@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
-import MyButton from '../../util/MyButton';
 import DeletePost from './DeletePost';
 import PostDialog from './PostDialog';
 import LikeButton from './LikeButton';
@@ -12,9 +11,6 @@ import LikeButton from './LikeButton';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import ChatIcon from '@material-ui/icons/Chat';
-import FavoriteIcon from '@material-ui/icons/Chat';
-import FavoriteBorder from '@material-ui/icons/Chat';
 
 import { connect } from 'react-redux';
 import { likePost, unlikePost } from '../../redux/actions/dataActions';

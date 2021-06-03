@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import MyButton from '../../util/MyButton';
 import UploadPost from '../post/UploadPost';
-import Notifications from './Notifications.js';
+import Notifications from './Notifications';
+
 //Material UI
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -33,7 +34,7 @@ class Navbar extends Component {
                   <Group />
                 </MyButton>
               </Link>
-                <Notifications />
+              <Notifications />
             </Fragment>
           ) : (
             <Fragment>
@@ -59,4 +60,4 @@ const mapStateToProps = (state) => ({
   authenticated: state.user.authenticated,
 });
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps)(withRouter(Navbar));
