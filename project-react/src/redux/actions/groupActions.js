@@ -1,22 +1,18 @@
 import {
   SET_GROUPS,
   CREATE_GROUP,
-  ADD_USER,
-  REMOVE_USER,
   SET_ERRORS,
-  CLEAR_ERRORS,
-  LOADING_DATA,
   LOADING_UI,
-  SET_USER,
   SET_GROUP,
   STOP_LOADING_UI,
+  LOADING_GROUP,
 } from '../types';
 import { addUser } from './userActions';
 import { clearErrors } from './dataActions';
 import axios from 'axios';
 
 export const getGroups = (queryText) => (dispatch) => {
-  dispatch({ type: LOADING_DATA });
+  dispatch({ type: LOADING_GROUP });
   axios
     .get('/groups', { params: queryText })
     .then((res) => {
@@ -34,7 +30,7 @@ export const getGroups = (queryText) => (dispatch) => {
 };
 
 export const getGroup = (groupHandle) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
+  dispatch({ type: LOADING_GROUP });
   axios
     .get(`/groups/${groupHandle}`)
     .then((res) => {
@@ -46,12 +42,12 @@ export const getGroup = (groupHandle) => (dispatch) => {
     });
 };
 
-export const uploadGroupImage = (formData) => (dispatch) => {
+export const uploadGroupImage = (formData, groupHandle) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
     .post('/groups/image', formData)
     .then(() => {
-      dispatch({ type: STOP_LOADING_UI });
+      dispatch(getGroup(groupHandle));
     })
     .catch((err) => {
       console.log(err);

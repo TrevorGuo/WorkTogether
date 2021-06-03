@@ -4,6 +4,7 @@ import {
   SET_GROUPS,
   SET_GROUP,
   CREATE_GROUP,
+  LOADING_GROUP,
 } from '../types';
 
 const initialState = {
@@ -29,6 +30,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
       };
+    case LOADING_GROUP:
+      return {
+        ...state,
+        loading: true,
+      };
     case SET_GROUPS:
       return {
         ...state,
@@ -40,6 +46,7 @@ export default function (state = initialState, action) {
         ...state,
         group: action.payload,
         users: action.payload.users,
+        loading: false,
       };
     case CREATE_GROUP:
       return {

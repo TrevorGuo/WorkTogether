@@ -27,3 +27,4 @@ export const REMOVE_USER = 'REMOVE_USER';
 export const SET_GROUPS = 'SET_GROUPS';
 export const SET_GROUP = 'SET_GROUP';
 export const CREATE_GROUP = 'CREATE_GROUP';
+export const LOADING_GROUP = 'LOADING_GROUP';

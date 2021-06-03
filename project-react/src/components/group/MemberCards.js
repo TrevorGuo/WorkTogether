@@ -14,6 +14,25 @@ import { connect } from 'react-redux';
 const styles = (theme) => ({
   ...theme.spreadThis,
   ...theme.profileSpread,
+  profileImage: {
+    width: 120,
+    height: 120,
+    objectFit: 'cover',
+    borderRadius: '50%',
+    margin: '15px 0px auto 10px',
+  },
+  card: {
+    position: 'relative',
+    display: 'flex',
+    marginBottom: 20,
+    marginLeft: 30,
+    width: 200,
+  },
+  content: {
+    padding: 25,
+    objectFit: 'cover',
+    textAlign: 'center',
+  },
 });
 
 class Profile extends Component {
@@ -27,18 +46,23 @@ class Profile extends Component {
     } = this.props;
 
     let profileMarkup = !loading ? (
-      <Paper className={classes.paper}>
+      <Paper className={classes.card}>
         <div className={classes.profile}>
           <div className='image-wrapper'>
-            <img src={imageUrl} alt='profile' className='profile-image' />
+            <img
+              src={imageUrl}
+              alt='profile'
+              className={classes.profileImage}
+            />
           </div>
           <hr />
-          <div className='profile-details'>
+          <div className={classes.content}>
             <MuiLink
               component={Link}
               to={`/users/${handle}`}
               color='primary'
               variant='h5'
+              justifyContent='center'
             >
               {handle}
             </MuiLink>

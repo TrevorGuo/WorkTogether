@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getGroup } from '../redux/actions/groupActions';
@@ -41,22 +42,6 @@ class groupHome extends Component {
   state = {
     profile: null,
   };
-  // componentDidMount() {
-  //     const handle = this.props.match.params.handle;
-  //     const postId = this.props.match.params.postId;
-
-  //     if (postId) this.setState({ postIdParam: postId });
-
-  //   this.props.getGroupData(handle);
-  //   axios
-  //     .get(`/user/${handle}`)
-  //     .then((res) => {
-  //       this.setState({
-  //         profile: res.data.user,
-  //       });
-  //     })
-  //     .catch((err) => console.log(err));
-  // }
 
   componentDidMount() {
     const groupHandle = this.props.match.params.groupHandle;
@@ -74,14 +59,16 @@ class groupHome extends Component {
     );
 
     return (
-      <Grid container spacing={10}>
-        <Grid container spacing={3} className={styles.profile}>
-          {usersMarkup}
+      <Fragment>
+        <Grid container spacing={10}>
+          <Grid item sm={8}>
+            <Box display='flex'>{usersMarkup}</Box>
+          </Grid>
+          <Grid item sm={4}>
+            <GroupProfile />
+          </Grid>
         </Grid>
-        <Grid item sm={4} xs={12}>
-          <GroupProfile />
-        </Grid>
-      </Grid>
+      </Fragment>
     );
   }
 }

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import MyButton from '../../util/MyButton';
 import Typography from '@material-ui/core/Typography';
-import MuiLink from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
@@ -29,7 +28,7 @@ class GroupProfile extends Component {
     const image = event.target.files[0];
     const formData = new FormData();
     formData.append('image', image, image.name);
-    this.props.uploadGroupImage(formData);
+    this.props.uploadGroupImage(formData, this.props.group.group.groupHandle);
   };
   handleEditPicture = () => {
     const fileInput = document.getElementById('imageInput');
@@ -80,6 +79,10 @@ class GroupProfile extends Component {
         </MyButton>
       );
 
+    // IMPLEMENT DELETEGROUP
+    // const deleteButton =
+    //   handle === admin ? <DeleteGroup postId={postId} /> : null;
+
     let groupProfileMarkup = !loading ? (
       <Paper className={classes.paper}>
         <div className={classes.profile}>
@@ -99,14 +102,14 @@ class GroupProfile extends Component {
           </div>
           <hr />
           <div className='profile-details'>
-            <MuiLink
+            <Typography
               component={Link}
               to={`/groups/${groupHandle}`}
               color='primary'
               variant='h5'
             >
               {groupHandle}
-            </MuiLink>
+            </Typography>
             <hr />
             {body && <Typography variant='body2'>{body}</Typography>}
             <hr />
