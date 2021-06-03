@@ -20,6 +20,7 @@ exports.createGroup = (req, res) => {
   const newGroup = {
     admin: req.user.handle,
     groupHandle: req.body.groupHandle,
+    lowercase: req.body.groupHandle.toLowerCase(),
     body: req.body.body,
     createdAt: new Date().toISOString(),
     groupImage: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noGroupImg}?alt=media`,
@@ -50,8 +51,8 @@ exports.createGroup = (req, res) => {
 
 exports.getAllGroups = (req, res) => {
   db.collection('groups')
-    .where('groupHandle', '>=', req.query.queryText)
-    .where('groupHandle', '<=', req.query.queryText + '\uf8ff')
+    .where('lowercase', '>=', req.query.queryText.toLowerCase())
+    .where('lowercase', '<=', req.query.queryText.toLowerCase() + '\uf8ff')
     .orderBy('groupHandle', 'desc')
     .orderBy('createdAt', 'desc')
     .get()
