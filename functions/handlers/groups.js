@@ -1,4 +1,4 @@
-const { db } = require('../util/admin');
+const { admin, db } = require('../util/admin');
 const { uuid } = require('uuidv4');
 const config = require('../util/config');
 const firebase = require('firebase');
@@ -138,27 +138,69 @@ exports.joinGroup = (req, res) => {
 };
 
 exports.leaveGroup = (req, res) => {
-  var group = db
-    .collection('groups')
-    .where('groupHandle', '==', req.body.handle)
-    .limit(1);
+  // console.log(req.body);
+  // var group = db
+  //   .collection('groups')
+  //   .where('groupHandle', '==', req.body.groupHandle)
+  //   .limit(1);
+  // if (req.user.gHandle !== group.groupHandle) {
+  //   return res
+  //     .status(404)
+  //     .json({ error: 'You are already not in this group.' });
+  // } else {
+  //   group.update({
+  //     userCount: firebase.firestore.FieldValue.increment(-1),
+  //   });
+  //   group.update({
+  //     users: firebase.firestore.FieldValue.arrayRemove(req.user),
+  //   });
+  //   req.user.update({
+  //     groupId: '',
+  //     gHandle: '',
+  //   });
+  // }
+  console.log('Removing User');
+  const groupDocument = db.doc(`/groups/${req.body.groupHandle}`);
+  let groupData;
 
-  if (req.user.gHandle !== group.groupHandle) {
-    return res
-      .status(404)
-      .json({ error: 'You are already not in this group.' });
-  } else {
-    group.update({
-      userCount: firebase.firestore.FieldValue.increment(-1),
+  groupDocument
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        groupData = doc.data();
+        groupData.userCount--;
+        let index = groupData.users.findIndex(
+          (user) => user.handle === req.user.handle
+        );
+        groupData.users.splice(index, 1);
+        console.log(groupData.users);
+        return db
+          .doc(`groups/${req.body.groupHandle}`)
+          .update({ userCount: groupData.userCount, users: groupData.users })
+          .then(() => {
+            db.doc(`users/${req.user.handle}`)
+              .update({
+                gHandle: '',
+              })
+              .then(() => {
+                return res.json({ message: 'User successfully removed' });
+              })
+              .catch((err) => {
+                return res
+                  .status(500)
+                  .json({ error: "Couldn't update user's group" });
+              });
+          })
+          .catch((err) => {
+            return res.status(500).json({ error: 'Something went wrong' });
+          });
+      } else {
+        return res.status(404).json({ error: 'Group not found' });
+      }
+    })
+    .catch((err) => {
+      return res.status(500).json({ error: 'Something went wrong' });
     });
-    group.update({
-      users: firebase.firestore.FieldValue.arrayRemove(req.user),
-    });
-    req.user.update({
-      groupId: '',
-      gHandle: '',
-    });
-  }
 };
 
 exports.deleteGroup = (req, res) => {
@@ -192,8 +234,8 @@ exports.deleteGroup = (req, res) => {
     });
 };
 
-
 exports.uploadImageGroup = (req, res) => {
+  console.log('Uploading image');
   const BusBoy = require('busboy');
   const path = require('path');
   const os = require('os');

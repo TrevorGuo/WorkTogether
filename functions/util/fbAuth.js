@@ -13,7 +13,8 @@ module.exports = (req, res, next) => {
     return res.status(403).json({ error: 'Unauthorized' });
   }
   // UNCOMMENT BELOW WHEN USING EMULATOR
-  // firebase.auth().useEmulator('http://localhost:9099/');
+  firebase.auth().useEmulator('http://localhost:9099/');
+
   admin
     .auth()
     .verifyIdToken(idToken)
