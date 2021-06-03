@@ -53,7 +53,7 @@ exports.getAllGroups = (req, res) => {
   db.collection('groups')
     .where('lowercase', '>=', req.query.queryText.toLowerCase())
     .where('lowercase', '<=', req.query.queryText.toLowerCase() + '\uf8ff')
-    .orderBy('groupHandle', 'desc')
+    .orderBy('lowercase', 'desc')
     .orderBy('createdAt', 'desc')
     .get()
     .then((data) => {
@@ -88,7 +88,7 @@ exports.getGroup = (req, res) => {
         return res.status(404).json({ error: 'Group not found' });
       }
       groupData = doc.data();
-      return groupData;
+      return res.json(groupData);
     })
     .catch((err) => {
       console.error(err);
