@@ -87,7 +87,7 @@ exports.getGroup = (req, res) => {
         return res.status(404).json({ error: 'Group not found' });
       }
       groupData = doc.data();
-      return groupData;
+      return res.json(groupData);
     })
     .catch((err) => {
       console.error(err);
