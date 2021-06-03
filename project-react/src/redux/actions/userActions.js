@@ -9,6 +9,7 @@ import {
   REMOVE_USER,
   MARK_NOTIFICATIONS_READ,
 } from '../types';
+import { getGroup } from './groupActions';
 import axios from 'axios';
 
 export const loginUser = (userData, history) => (dispatch) => {
@@ -82,6 +83,7 @@ export const addUser = (groupHandle) => (dispatch) => {
     .post('/groups/join', groupHandle)
     .then(() => {
       dispatch(getUserData());
+      dispatch(getGroup(groupHandle.groupHandle));
     })
     .catch((err) => console.log(err));
 };
@@ -92,6 +94,7 @@ export const removeUser = (groupHandle) => (dispatch) => {
     .post('/groups/leave', groupHandle)
     .then(() => {
       dispatch(getUserData());
+      dispatch(getGroup(groupHandle.groupHandle));
     })
     .catch((err) => console.log(err));
 };

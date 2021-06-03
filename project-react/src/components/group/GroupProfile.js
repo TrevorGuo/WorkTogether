@@ -49,7 +49,15 @@ class GroupProfile extends Component {
     const {
       classes,
       group: {
-        group: { groupHandle, admin, createdAt, groupImage, body, location },
+        group: {
+          groupHandle,
+          admin,
+          createdAt,
+          groupImage,
+          body,
+          location,
+          userCount,
+        },
         loading,
       },
       user: {
@@ -109,6 +117,9 @@ class GroupProfile extends Component {
               variant='h5'
             >
               {groupHandle}
+            </Typography>
+            <Typography variant='body2' color='textSecondary'>
+              {userCount}/10 Members
             </Typography>
             <hr />
             {body && <Typography variant='body2'>{body}</Typography>}

@@ -39,10 +39,6 @@ function FormRow() {
 }
 
 class groupHome extends Component {
-  state = {
-    profile: null,
-  };
-
   componentDidMount() {
     const groupHandle = this.props.match.params.groupHandle;
     this.props.getGroup(groupHandle);
@@ -53,8 +49,11 @@ class groupHome extends Component {
     const { classes } = this.props;
 
     let usersMarkup = users ? (
-      users.map((user) => <MemberCards key={user.userId} user={user} />)
+      users.map((user) => (
+        <MemberCards key={user.userId} handle={user.handle} />
+      ))
     ) : (
+      // users.map((user) => console.log(user))
       <CircularProgress size={30} className={classes.progress} />
     );
 
