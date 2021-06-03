@@ -4,7 +4,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import MyButton from '../../util/MyButton';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import MuiLink from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
@@ -58,6 +57,29 @@ class GroupProfile extends Component {
         credentials: { handle, gHandle },
       },
     } = this.props;
+
+    const editGroupPictureButton =
+      handle === admin ? (
+        <MyButton
+          tip='Edit group picture'
+          onClick={this.handleEditPicture}
+          btnClassName='button'
+        >
+          <EditIcon color='primary' />
+        </MyButton>
+      ) : null;
+
+    const joinLeaveButton =
+      gHandle === groupHandle ? (
+        <MyButton tip='Leave Group' onClick={this.handleLeaveGroup}>
+          <DirectionsWalkIcon color='primary' />
+        </MyButton>
+      ) : (
+        <MyButton tip='Join Group' onClick={this.handleJoinGroup}>
+          <GroupAdd color='primary' />
+        </MyButton>
+      );
+
     let groupProfileMarkup = !loading ? (
       <Paper className={classes.paper}>
         <div className={classes.profile}>
@@ -73,15 +95,7 @@ class GroupProfile extends Component {
               hidden='hidden'
               onChange={this.handleImageChange}
             />
-            {handle === admin ? (
-              <MyButton
-                tip='Edit profile picture'
-                onClick={this.handleEditPicture}
-                btnClassName='button'
-              >
-                <EditIcon color='primary' />
-              </MyButton>
-            ) : null}
+            {editGroupPictureButton}
           </div>
           <hr />
           <div className='profile-details'>
@@ -105,15 +119,7 @@ class GroupProfile extends Component {
             <CalendarToday color='primary' />{' '}
             <span>Created {dayjs(createdAt).format('MMM YYYY')}</span>
           </div>
-          {gHandle === groupHandle ? (
-            <MyButton tip='Leave Group' onClick={this.handleLeaveGroup}>
-              <DirectionsWalkIcon color='primary' />
-            </MyButton>
-          ) : (
-            <MyButton tip='Join Group' onClick={this.handleJoinGroup}>
-              <GroupAdd color='primary' />
-            </MyButton>
-          )}
+          {joinLeaveButton}
         </div>
       </Paper>
     ) : (

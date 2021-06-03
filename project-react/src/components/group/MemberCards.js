@@ -17,60 +17,46 @@ const styles = (theme) => ({
 });
 
 class Profile extends Component {
-  handleImageChange = (event) => {
-    const image = event.target.files[0];
-    const formData = new FormData();
-    formData.append('image', image, image.name);
-    this.props.uploadImage(formData);
-  };
-
   render() {
     const {
       classes,
       user: {
         credentials: { handle, createdAt, imageUrl, bio, location },
         loading,
-        authenticated,
       },
     } = this.props;
 
     let profileMarkup = !loading ? (
-        <Paper className={classes.paper}>
-          <div className={classes.profile}>
-            <div className='image-wrapper'>
-              <img src={imageUrl} alt='profile' className='profile-image' />
-              <input
-                type='file'
-                id='imageInput'
-                hidden='hidden'
-                onChange={this.handleImageChange}
-              />
-            </div>
-            <hr />
-            <div className='profile-details'>
-              <MuiLink
-                component={Link}
-                to={`/users/${handle}`}
-                color='primary'
-                variant='h5'
-              >
-                @{handle}
-              </MuiLink>
-              <hr />
-              {bio && <Typography variant='body2'>{bio}</Typography>}
-              <hr />
-              {location && (
-                <Fragment>
-                  <LocationOn color='primary' /> <span>{location}</span>
-                  <hr />
-                </Fragment>
-              )}
-              <CalendarToday color='primary' />{' '}
-              <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
-            </div>
+      <Paper className={classes.paper}>
+        <div className={classes.profile}>
+          <div className='image-wrapper'>
+            <img src={imageUrl} alt='profile' className='profile-image' />
           </div>
-        </Paper>
-      ) : (
+          <hr />
+          <div className='profile-details'>
+            <MuiLink
+              component={Link}
+              to={`/users/${handle}`}
+              color='primary'
+              variant='h5'
+            >
+              {handle}
+            </MuiLink>
+            <hr />
+            {bio && <Typography variant='body2'>{bio}</Typography>}
+            <hr />
+            {location && (
+              <Fragment>
+                <LocationOn color='primary' /> <span>{location}</span>
+                <hr />
+              </Fragment>
+            )}
+            <CalendarToday color='primary' />{' '}
+            <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
+          </div>
+        </div>
+      </Paper>
+    ) : (
       <CircularProgress size={30} className={classes.progress} />
     );
 
@@ -87,6 +73,4 @@ Profile.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default connect(
-  mapStateToProps,
-)(withStyles(styles)(Profile));
+export default connect(mapStateToProps)(withStyles(styles)(Profile));
