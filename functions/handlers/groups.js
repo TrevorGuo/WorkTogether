@@ -46,6 +46,9 @@ exports.createGroup = (req, res) => {
 
 exports.getAllGroups = (req, res) => {
   db.collection('groups')
+    .where('groupHandle', '>=', req.query.queryText)
+    .where('groupHandle', '<=', req.query.queryText + '\uf8ff')
+    .orderBy('groupHandle', 'desc')
     .orderBy('createdAt', 'desc')
     .get()
     .then((data) => {
