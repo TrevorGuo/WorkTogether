@@ -1,5 +1,6 @@
 const { db } = require('../util/admin');
 const { uuid } = require('uuidv4');
+const config = require('../util/config');
 const firebase = require('firebase');
 
 //Create Group
@@ -14,11 +15,14 @@ exports.createGroup = (req, res) => {
     });
   }
 
+  const noGroupImg = 'no-group-img.png';
+
   const newGroup = {
     admin: req.user.handle,
     groupHandle: req.body.groupHandle,
     body: req.body.body,
     createdAt: new Date().toISOString(),
+    groupImage: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noGroupImg}?alt=media`,
     userCount: 0,
     users: [],
   };
@@ -46,6 +50,9 @@ exports.createGroup = (req, res) => {
 
 exports.getAllGroups = (req, res) => {
   db.collection('groups')
+    .where('groupHandle', '>=', req.query.queryText)
+    .where('groupHandle', '<=', req.query.queryText + '\uf8ff')
+    .orderBy('groupHandle', 'desc')
     .orderBy('createdAt', 'desc')
     .get()
     .then((data) => {
