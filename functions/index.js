@@ -33,6 +33,7 @@ const {
   joinGroup,
   leaveGroup,
   deleteGroup,
+  uploadImageGroup,
 } = require('./handlers/groups');
 
 // Post routes
@@ -51,6 +52,8 @@ app.post('/groups', FBAuth, createGroup);
 app.post('/groups/join', FBAuth, joinGroup);
 app.post('/groups/leave', FBAuth, leaveGroup);
 app.delete('/groups', FBAuth, deleteGroup);
+app.post('/groups/image', FBAuth, uploadImageGroup);
+
 
 // users routes
 app.post('/signup', signup);
