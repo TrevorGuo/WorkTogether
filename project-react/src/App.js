@@ -14,6 +14,7 @@ import login from './pages/login';
 import signup from './pages/signup';
 import user from './pages/user';
 import groups from './pages/groups';
+import groupHome from './pages/groupHome';
 //MUI
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
@@ -53,6 +54,7 @@ function App() {
               <AuthRoute exact path='/login' component={login} />
               <AuthRoute exact path='/signup' component={signup} />
               <Route exact path='/groups' component={groups} />
+              <Route exact path='/groups/:groupHandle' component ={groupHome}/>
               <Route exact path='/users/:handle' component={user} />
               <Route exact path='/user/:handle/post/:postId' component={user}/>
             </Switch>
