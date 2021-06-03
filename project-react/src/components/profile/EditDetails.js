@@ -26,8 +26,8 @@ const styles = {
     margin: '10px auto 10px auto',
   },
   button: {
-    marginTop: 20,
     position: 'relative',
+    float: 'right',
   },
   customError: {
     color: 'red',
@@ -36,9 +36,6 @@ const styles = {
   },
   progress: {
     position: 'absolute',
-  },
-  button: {
-    float: 'right',
   },
 };
 

@@ -3,22 +3,32 @@ import React, { Component, Fragment } from 'react';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getGroups } from '../redux/actions/groupActions';
-import TextField from '@material-ui/core/TextField';
-import MyButton from '../util/MyButton';
+import { getGroup } from '../redux/actions/groupActions';
 import MemberCards from '../components/group/MemberCards';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import StaticProfile from '../components/profile/StaticProfile';
+import withStyles from '@material-ui/core/styles/withStyles';
+
+const styles = (theme) => ({
+  ...theme.spreadThis,
+  profile: {
+    marginTop: 30,
+  },
+});
 
 function FormRow() {
   return (
     <Fragment>
-      <Grid item sm={4}>
+      <Grid item sm={3}>
         <MemberCards />
       </Grid>
-      <Grid item sm={4}>
+      <Grid item sm={3}>
         <MemberCards />
       </Grid>
-      <Grid item sm={4}>
+      <Grid item sm={3}>
+        <MemberCards />
+      </Grid>
+      <Grid item sm={3}>
         <MemberCards />
       </Grid>
     </Fragment>
@@ -26,60 +36,76 @@ function FormRow() {
 }
 
 class groupHome extends Component {
-    // componentDidMount() {
-    //     const handle = this.props.match.params.handle;
-    //     const postId = this.props.match.params.postId;
-    
-    //     if (postId) this.setState({ postIdParam: postId });
-    
-    //     this.props.getGroupData(handle);
-    //     axios
-    //       .get(`/user/${handle}`)
-    //       .then((res) => {
-    //         this.setState({
-    //           profile: res.data.user,
-    //         });
-    //       })
-    //       .catch((err) => console.log(err));
-    //   }
-    
+  state = {
+    profile: null,
+  };
+  // componentDidMount() {
+  //     const handle = this.props.match.params.handle;
+  //     const postId = this.props.match.params.postId;
 
-    render(){
-        const { users, loading } = this.props.data;
-        const { postIdParam } = this.state;
+  //     if (postId) this.setState({ postIdParam: postId });
 
-        let usersMarkup = loading ? (
-          <CircularProgress size={30} className={classes.progress} />
-        ) : (
-          FormRow())
+  //     this.props.getGroupData(handle);
+  //     axios
+  //       .get(`/user/${handle}`)
+  //       .then((res) => {
+  //         this.setState({
+  //           profile: res.data.user,
+  //         });
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+
+  componentDidMount() {
+    const groupHandle = this.props.match.params.groupHandle;
+    console.log(groupHandle);
+    this.props.getGroup(groupHandle);
+    console.log(this.props);
+  }
+
+  render() {
+    const { users, loading } = this.props.group;
+    const { classes } = this.props;
+
+    let usersMarkup = loading ? (
+      <CircularProgress size={30} className={classes.progress} />
+    ) : (
+      // users.map((user) => <MemberCards key={user.userId} />)
+      <div>Users</div>
+    );
 
     return (
-        <Grid container spacing={10}>
-            <Grid item sm={8} xs={12}>
-            {postsMarkup}
-            </Grid>
-            <Grid item sm={4} xs={12}>
-            {this.state.profile === null ? (
-                <p>Loading profile...</p>
-            ) : (
-                <StaticProfile profile={this.state.profile} />
-            )}
-            </Grid>
+      <Grid container spacing={10}>
+        <Grid container spacing={1} className={styles.profile}>
+          {FormRow()}
         </Grid>
-        );
-    }
+        <Grid item sm={4} xs={12}>
+          {this.state.profile === null ? (
+            <p>Loading profile...</p>
+          ) : (
+            <StaticProfile profile={this.state.profile} />
+          )}
+        </Grid>
+      </Grid>
+    );
+  }
 }
 
-user.propTypes = {
-    getUserData: PropTypes.func.isRequired,
-    data: PropTypes.object.isRequired,
-  };
-  
-  const mapStateToProps = (state) => ({
-    data: state.data,
-  });
+groupHome.propTypes = {
+  // getUserData: PropTypes.func.isRequired,
+  // data: PropTypes.object.isRequired,
+  group: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  group: state.group,
+});
+
+const mapActionsToProps = {
+  getGroup,
+};
 
 export default connect(
-    mapStateToProps,
-    mapActionsToProps
-  )(withStyles(styles)());
+  mapStateToProps,
+  mapActionsToProps
+)(withStyles(styles)(groupHome));

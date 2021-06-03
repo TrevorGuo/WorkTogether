@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
@@ -38,7 +38,7 @@ class groups extends Component {
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
-  handleSubmit = (event) => {
+  handleSubmit = () => {
     this.props.getGroups({ queryText: this.state.search });
   };
   render() {

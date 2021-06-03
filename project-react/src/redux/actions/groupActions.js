@@ -8,6 +8,8 @@ import {
   LOADING_DATA,
   LOADING_UI,
   SET_USER,
+  SET_GROUP,
+  STOP_LOADING_UI,
 } from '../types';
 import { addUser } from './userActions';
 import { clearErrors } from './dataActions';
@@ -28,6 +30,20 @@ export const getGroups = (queryText) => (dispatch) => {
         type: SET_GROUPS,
         payload: [],
       });
+    });
+};
+
+export const getGroup = (groupHandle) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .get(`/groups/${groupHandle}`)
+    .then((res) => {
+      console.log(res.data);
+      dispatch({ type: SET_GROUP, payload: res.data });
+      dispatch({ type: STOP_LOADING_UI });
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 

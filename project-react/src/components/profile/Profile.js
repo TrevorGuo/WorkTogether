@@ -7,7 +7,6 @@ import EditDetails from './EditDetails';
 import MyButton from '../../util/MyButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import MuiLink from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import LocationOn from '@material-ui/icons/LocationOn';
 import CalendarToday from '@material-ui/icons/CalendarToday';

@@ -38,7 +38,7 @@ class Group extends Component {
     } = this.props;
     return (
       <Card className={classes.card}>
-        <img src={groupImage} className={classes.profileImage} />
+        <img src={groupImage} alt={'Group'} className={classes.profileImage} />
         <CardContent className={classes.content}>
           <Typography
             variant='h5'

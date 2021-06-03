@@ -15,7 +15,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 // Icons
 import CloseIcon from '@material-ui/icons/Close';
-import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import ChatIcon from '@material-ui/icons/Chat';
 // Redux stuff
 import { connect } from 'react-redux';
@@ -69,7 +68,7 @@ class PostDialog extends Component {
     const { userHandle, postId } = this.props;
     const newPath = `/user/${userHandle}/post/${postId}`;
 
-    if (oldPath == newPath) oldPath = `/user/${userHandle}`;
+    if (oldPath === newPath) oldPath = `/user/${userHandle}`;
 
     window.history.pushState(null, null, newPath);
 
