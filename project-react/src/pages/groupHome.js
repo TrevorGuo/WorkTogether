@@ -61,30 +61,23 @@ class groupHome extends Component {
   componentDidMount() {
     const groupHandle = this.props.match.params.groupHandle;
     this.props.getGroup(groupHandle);
-    axios
-      .get(`/groups/${groupHandle}`)
-      .then((res) => {
-        this.setState({
-          profile: res.data,
-        });
-      })
-      .catch((err) => console.log(err));
   }
 
   render() {
-    const { users, loading } = this.props.group;
+    const { users } = this.props.group;
     const { classes } = this.props;
 
-    let usersMarkup = loading ? (
-      <CircularProgress size={30} className={classes.progress} />
+    let usersMarkup = users ? (
+      users.map((user) => <MemberCards key={user.userId} user={user} />)
     ) : (
-      // users.map((user) => <MemberCards key={user.userId} />)
-      <div>Users</div>
+      <CircularProgress size={30} className={classes.progress} />
     );
 
     return (
       <Grid container spacing={10}>
-        <Grid container spacing={1} className={styles.profile}></Grid>
+        <Grid container spacing={3} className={styles.profile}>
+          {usersMarkup}
+        </Grid>
         <Grid item sm={4} xs={12}>
           <GroupProfile />
         </Grid>

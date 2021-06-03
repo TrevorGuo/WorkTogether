@@ -10,7 +10,7 @@ import MuiLink from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
-import { addUser } from '../../redux/actions/userActions';
+import { addUser, removeUser } from '../../redux/actions/userActions';
 import { uploadGroupImage } from '../../redux/actions/groupActions';
 
 // MUI Icons
@@ -42,7 +42,7 @@ class GroupProfile extends Component {
     }
   };
   handleLeaveGroup = () => {
-    // this.props.removeUser();
+    this.props.removeUser({ groupHandle: this.props.group.group.groupHandle });
   };
 
   handleDeleteGroup = () => {};
@@ -51,15 +51,7 @@ class GroupProfile extends Component {
     const {
       classes,
       group: {
-        group: {
-          groupHandle,
-          admin,
-          createdAt,
-          groupImage,
-          body,
-          location,
-          users,
-        },
+        group: { groupHandle, admin, createdAt, groupImage, body, location },
         loading,
       },
       user: {
@@ -145,7 +137,7 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-const mapActionsToProps = { uploadGroupImage, addUser };
+const mapActionsToProps = { uploadGroupImage, addUser, removeUser };
 
 export default connect(
   mapStateToProps,

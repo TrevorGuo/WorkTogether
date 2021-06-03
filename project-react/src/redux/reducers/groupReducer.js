@@ -10,6 +10,7 @@ const initialState = {
   loading: false,
   groups: [],
   group: {},
+  users: [],
 };
 
 export default function (state = initialState, action) {
@@ -38,6 +39,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         group: action.payload,
+        users: action.payload.users,
       };
     case CREATE_GROUP:
       return {

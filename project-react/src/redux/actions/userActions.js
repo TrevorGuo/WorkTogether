@@ -86,6 +86,16 @@ export const addUser = (groupHandle) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+export const removeUser = (groupHandle) => (dispatch) => {
+  dispatch({ type: LOADING_USER });
+  axios
+    .post('/groups/leave', groupHandle)
+    .then(() => {
+      dispatch(getUserData());
+    })
+    .catch((err) => console.log(err));
+};
+
 export const editUserDetails = (userDetails) => (dispatch) => {
   dispatch({ type: LOADING_USER });
   axios
