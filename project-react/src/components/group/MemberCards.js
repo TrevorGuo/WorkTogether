@@ -42,60 +42,62 @@ class MemberCards extends Component {
   };
   componentDidMount() {
     const handle = this.props.handle;
-    axios
-      .get(`/user/${handle}`)
-      .then((res) => {
-        this.setState({
-          displayMember: res.data.user,
-        });
-      })
-      .catch((err) => console.log(err));
+    // axios
+    //   .get(`/user/${handle}`)
+    //   .then((res) => {
+    //     this.setState({
+    //       displayMember: res.data.user,
+    //     });
+    //   })
+    //   .catch((err) => console.log(err));
   }
   render() {
-    const { classes, handle } = this.props;
-    const { member } = this.state.displayMember;
-    console.log(member);
+    const {
+      classes,
+      member: { handle, bio, location, imageUrl, createdAt },
+      loading,
+    } = this.props;
 
-    // let memberCardMarkup = !loading ? (
-    //   <Paper className={classes.card}>
-    //     <div className={classes.profile}>
-    //       <div className='image-wrapper'>
-    //         <img
-    //           src={imageUrl}
-    //           alt='profile'
-    //           className={classes.profileImage}
-    //         />
-    //       </div>
-    //       <hr />
-    //       <div className={classes.content}>
-    //         <Typography
-    //           component={Link}
-    //           to={`/users/${handle}`}
-    //           color='primary'
-    //           variant='h5'
-    //           justifyContent='center'
-    //         >
-    //           {handle}
-    //         </Typography>
-    //         <hr />
-    //         {bio && <Typography variant='body2'>{bio}</Typography>}
-    //         <hr />
-    //         {location && (
-    //           <Fragment>
-    //             <LocationOn color='primary' /> <span>{location}</span>
-    //             <hr />
-    //           </Fragment>
-    //         )}
-    //         <CalendarToday color='primary' />{' '}
-    //         <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
-    //       </div>
-    //     </div>
-    //   </Paper>
-    // ) : (
-    //   <CircularProgress size={30} className={classes.progress} />
-    // );
+    let memberCardMarkup = !loading ? (
+      <Paper className={classes.card}>
+        <div className={classes.profile}>
+          <div className='image-wrapper'>
+            <img
+              src={imageUrl}
+              alt='profile'
+              className={classes.profileImage}
+            />
+          </div>
+          <hr />
+          <div className={classes.content}>
+            <Typography
+              component={Link}
+              to={`/users/${handle}`}
+              color='primary'
+              variant='h5'
+              justifyContent='center'
+            >
+              {handle}
+            </Typography>
+            <hr />
+            {bio && <Typography variant='body2'>{bio}</Typography>}
+            <hr />
+            {location && (
+              <Fragment>
+                <LocationOn color='primary' /> <span>{location}</span>
+                <hr />
+              </Fragment>
+            )}
+            <CalendarToday color='primary' />{' '}
+            <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
+          </div>
+        </div>
+      </Paper>
+    ) : (
+      <CircularProgress size={30} className={classes.progress} />
+    );
 
-    return <CircularProgress size={30} className={classes.progress} />;
+    return memberCardMarkup;
   }
 }
 
@@ -104,7 +106,7 @@ const mapStateToProps = (state) => ({
 });
 
 MemberCards.propTypes = {
-  // user: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

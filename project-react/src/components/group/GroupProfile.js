@@ -10,6 +10,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import { addUser, removeUser } from '../../redux/actions/userActions';
 import { uploadGroupImage } from '../../redux/actions/groupActions';
+import EditGroupDetails from './EditGroupDetails';
+import DeleteGroup from './DeleteGroup';
+import Box from '@material-ui/core/Box';
 
 // MUI Icons
 import LocationOn from '@material-ui/icons/LocationOn';
@@ -35,15 +38,19 @@ class GroupProfile extends Component {
     fileInput.click();
   };
   handleJoinGroup = () => {
-    if (this.props.user.credentials.gHandle === '') {
+    if (
+      this.props.user.credentials.gHandle === '' &&
+      this.props.userCount < 10
+    ) {
       this.props.addUser({ groupHandle: this.props.group.group.groupHandle });
     }
   };
   handleLeaveGroup = () => {
     this.props.removeUser({ groupHandle: this.props.group.group.groupHandle });
+    if (this.props.userCount === 0) {
+      this.props.deleteGroup(this.props.group.group.groupHandle);
+    }
   };
-
-  handleDeleteGroup = () => {};
 
   render() {
     const {
@@ -65,7 +72,7 @@ class GroupProfile extends Component {
       },
     } = this.props;
 
-    const editGroupPictureButton =
+    const editGroupPicture =
       handle === admin ? (
         <MyButton
           tip='Edit group picture'
@@ -75,6 +82,8 @@ class GroupProfile extends Component {
           <EditIcon color='primary' />
         </MyButton>
       ) : null;
+
+    const editGroupInfo = handle === admin ? <EditGroupDetails /> : null;
 
     const joinLeaveButton =
       gHandle === groupHandle ? (
@@ -87,9 +96,8 @@ class GroupProfile extends Component {
         </MyButton>
       );
 
-    // IMPLEMENT DELETEGROUP
-    // const deleteButton =
-    //   handle === admin ? <DeleteGroup postId={postId} /> : null;
+    const deleteButton =
+      handle === admin ? <DeleteGroup groupHandle={groupHandle} /> : null;
 
     let groupProfileMarkup = !loading ? (
       <Paper className={classes.paper}>
@@ -100,13 +108,13 @@ class GroupProfile extends Component {
               alt='Group profile'
               className='profile-image'
             />
+            {editGroupPicture}
             <input
               type='file'
               id='imageInput'
               hidden='hidden'
               onChange={this.handleImageChange}
             />
-            {editGroupPictureButton}
           </div>
           <hr />
           <div className='profile-details'>
@@ -133,7 +141,11 @@ class GroupProfile extends Component {
             <CalendarToday color='primary' />{' '}
             <span>Created {dayjs(createdAt).format('MMM YYYY')}</span>
           </div>
-          {joinLeaveButton}
+          <Box display='flex' alignItems='center' justifyContent='center'>
+            {deleteButton}
+            {editGroupInfo}
+            {joinLeaveButton}
+          </Box>
         </div>
       </Paper>
     ) : (

@@ -10,33 +10,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import GroupProfile from '../components/group/GroupProfile';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import axios from 'axios';
-
 const styles = (theme) => ({
   ...theme.spreadThis,
-  profile: {
-    marginTop: 30,
-  },
 });
-
-function FormRow() {
-  return (
-    <Fragment>
-      <Grid item sm={3}>
-        <MemberCards />
-      </Grid>
-      <Grid item sm={3}>
-        <MemberCards />
-      </Grid>
-      <Grid item sm={3}>
-        <MemberCards />
-      </Grid>
-      <Grid item sm={3}>
-        <MemberCards />
-      </Grid>
-    </Fragment>
-  );
-}
 
 class groupHome extends Component {
   componentDidMount() {
@@ -49,11 +25,8 @@ class groupHome extends Component {
     const { classes } = this.props;
 
     let usersMarkup = users ? (
-      users.map((user) => (
-        <MemberCards key={user.userId} handle={user.handle} />
-      ))
+      users.map((user) => <MemberCards key={user.userId} member={user} />)
     ) : (
-      // users.map((user) => console.log(user))
       <CircularProgress size={30} className={classes.progress} />
     );
 
@@ -61,7 +34,9 @@ class groupHome extends Component {
       <Fragment>
         <Grid container spacing={10}>
           <Grid item sm={8}>
-            <Box display='flex'>{usersMarkup}</Box>
+            <Box display='flex' flexWrap='wrap'>
+              {usersMarkup}
+            </Box>
           </Grid>
           <Grid item sm={4}>
             <GroupProfile />

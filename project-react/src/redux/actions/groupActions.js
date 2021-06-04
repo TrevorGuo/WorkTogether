@@ -6,6 +6,7 @@ import {
   SET_GROUP,
   STOP_LOADING_UI,
   LOADING_GROUP,
+  DELETE_GROUP,
 } from '../types';
 import { addUser } from './userActions';
 import { clearErrors } from './dataActions';
@@ -72,4 +73,25 @@ export const createGroup = (newGroup) => (dispatch) => {
         payload: err.response.data,
       });
     });
+};
+
+export const editGroupsDetails = (groupDetails) => (dispatch) => {
+  dispatch({ type: LOADING_GROUP });
+  console.log(groupDetails);
+  axios
+    .post('/groups/details', groupDetails)
+    .then(() => {
+      dispatch(getGroup(groupDetails.groupHandle));
+    })
+    .catch((err) => console.log(err));
+};
+
+export const deleteGroup = (groupHandle) => (dispatch) => {
+  axios
+    .delete('/groups')
+    .then(() => {
+      dispatch({ type: DELETE_GROUP, payload: groupHandle });
+      console.log('Tell me if this is being called');
+    })
+    .catch((err) => console.log(err));
 };

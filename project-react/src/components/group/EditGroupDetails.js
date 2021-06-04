@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import MyButton from '../../util/MyButton';
 import { connect } from 'react-redux';
-import { editUserDetails } from '../../redux/actions/userActions';
+import { editGroupsDetails } from '../../redux/actions/groupActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -42,28 +42,30 @@ const styles = {
   },
 };
 
-class EditDetails extends Component {
+class EditGroupDetails extends Component {
   state = {
-    bio: '',
+    groupHandle: '',
+    body: '',
     location: '',
     open: false,
   };
-  mapUserDetailsToState = (credentials) => {
+  mapGroupDetailsToState = (group) => {
     this.setState({
-      bio: credentials.bio ? credentials.bio : '',
-      location: credentials.location ? credentials.location : '',
+      location: group.location ? group.location : '',
+      body: group.body ? group.body : '',
+      groupHandle: group.groupHandle ? group.groupHandle : '',
     });
   };
   handleOpen = () => {
     this.setState({ open: true });
-    this.mapUserDetailsToState(this.props.credentials);
+    this.mapGroupDetailsToState(this.props.group);
   };
   handleClose = () => {
     this.setState({ open: false });
   };
   componentDidMount() {
-    const { credentials } = this.props;
-    this.mapUserDetailsToState(credentials);
+    const { group } = this.props;
+    this.mapGroupDetailsToState(group);
   }
 
   handleChange = (event) => {
@@ -72,11 +74,13 @@ class EditDetails extends Component {
     });
   };
   handleSubmit = () => {
-    const userDetails = {
-      bio: this.state.bio,
+    console.log(this.state);
+    const groupDetails = {
+      groupHandle: this.state.groupHandle,
+      body: this.state.body,
       location: this.state.location,
     };
-    this.props.editUserDetails(userDetails);
+    this.props.editGroupsDetails(groupDetails);
     this.handleClose();
   };
   render() {
@@ -100,13 +104,13 @@ class EditDetails extends Component {
           <DialogContent>
             <form>
               <TextField
-                name='bio'
+                name='body'
                 type='text'
-                label='Bio'
+                label='body'
                 multiline
-                placeholder='A short bio about yourself'
+                placeholder='A short bio about your group'
                 className={classes.textField}
-                value={this.state.bio}
+                value={this.state.body}
                 onChange={this.handleChange}
                 fullWidth
               />
@@ -114,7 +118,7 @@ class EditDetails extends Component {
                 name='location'
                 type='text'
                 label='Location'
-                placeholder='Where you live'
+                placeholder='Where is your group based in'
                 className={classes.textField}
                 value={this.state.location}
                 onChange={this.handleChange}
@@ -136,15 +140,15 @@ class EditDetails extends Component {
   }
 }
 
-EditDetails.propTypes = {
-  editUserDetails: PropTypes.func.isRequired,
+EditGroupDetails.propTypes = {
+  editGroupsDetails: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  credentials: state.user.credentials,
+  group: state.group.group,
 });
 
-export default connect(mapStateToProps, { editUserDetails })(
-  withStyles(styles)(EditDetails)
+export default connect(mapStateToProps, { editGroupsDetails })(
+  withStyles(styles)(EditGroupDetails)
 );
