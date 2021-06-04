@@ -34,7 +34,7 @@ class Group extends Component {
   render() {
     const {
       classes,
-      group: { body, createdAt, groupImage, groupHandle, users },
+      group: { body, location, createdAt, groupImage, groupHandle, users },
     } = this.props;
     return (
       <Card className={classes.card}>

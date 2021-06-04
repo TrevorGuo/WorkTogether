@@ -77,7 +77,6 @@ export const createGroup = (newGroup) => (dispatch) => {
 
 export const editGroupsDetails = (groupDetails) => (dispatch) => {
   dispatch({ type: LOADING_GROUP });
-  console.log(groupDetails);
   axios
     .post('/groups/details', groupDetails)
     .then(() => {
@@ -91,7 +90,6 @@ export const deleteGroup = (groupHandle) => (dispatch) => {
     .delete('/groups')
     .then(() => {
       dispatch({ type: DELETE_GROUP, payload: groupHandle });
-      console.log('Tell me if this is being called');
     })
     .catch((err) => console.log(err));
 };

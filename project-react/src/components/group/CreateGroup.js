@@ -43,6 +43,7 @@ class CreateGroup extends Component {
     open: false,
     handle: '',
     body: '',
+    location: '',
     errors: {},
   };
 
@@ -53,7 +54,7 @@ class CreateGroup extends Component {
       });
     }
     if (!nextProps.UI.errors && !nextProps.UI.loading) {
-      this.setState({ body: '', open: false, errors: {} });
+      this.setState({ body: '', location: '', open: false, errors: {} });
     }
   }
 
@@ -72,6 +73,7 @@ class CreateGroup extends Component {
     this.props.createGroup({
       groupHandle: this.state.handle,
       body: this.state.body,
+      location: this.state.location,
     });
   };
   render() {
@@ -117,6 +119,7 @@ class CreateGroup extends Component {
                 name='handle'
                 type='text'
                 label='Group Name'
+                placeholder='What is the name of your group?'
                 error={errors.groupHandle ? true : false}
                 helperText={errors.groupHandle}
                 className={classes.textField}
@@ -128,10 +131,20 @@ class CreateGroup extends Component {
                 type='text'
                 label='Bio'
                 multiline
-                rows='3'
                 placeholder='What is your group for?'
                 error={errors.body ? true : false}
                 helperText={errors.body}
+                className={classes.textField}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                name='location'
+                type='text'
+                label='Location'
+                placeholder="What is the group's location?"
+                error={errors.location ? true : false}
+                helperText={errors.location}
                 className={classes.textField}
                 onChange={this.handleChange}
                 fullWidth
