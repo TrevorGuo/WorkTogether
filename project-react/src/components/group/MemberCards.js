@@ -54,7 +54,7 @@ class MemberCards extends Component {
   render() {
     const {
       classes,
-      member: { bio, location, imageUrl, createdAt },
+      member: { handle, bio, location, imageUrl, createdAt },
       loading,
     } = this.props;
 

@@ -25,9 +25,7 @@ class groupHome extends Component {
     const { classes } = this.props;
 
     let usersMarkup = users ? (
-      users.map((user) => (
-        <MemberCards key={user.userId} member={user.handle} />
-      ))
+      users.map((user) => <MemberCards key={user.userId} member={user} />)
     ) : (
       <CircularProgress size={30} className={classes.progress} />
     );
