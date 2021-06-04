@@ -74,7 +74,6 @@ class EditGroupDetails extends Component {
     });
   };
   handleSubmit = () => {
-    console.log(this.state);
     const groupDetails = {
       groupHandle: this.state.groupHandle,
       body: this.state.body,

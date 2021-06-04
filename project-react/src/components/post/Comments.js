@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 const styles = (theme) => ({
   ...theme.spreadThis,
   commentImage: {
-    maxWidth: '100%',
+    width: 80,
     height: 80,
     objectFit: 'cover',
     borderRadius: '50%',
