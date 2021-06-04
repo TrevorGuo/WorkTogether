@@ -15,6 +15,9 @@ const styles = (theme) => ({
 });
 
 class groupHome extends Component {
+  state = {
+    users: [],
+  };
   componentDidMount() {
     const groupHandle = this.props.match.params.groupHandle;
     this.props.getGroup(groupHandle);

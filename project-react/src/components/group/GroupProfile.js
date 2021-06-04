@@ -40,8 +40,9 @@ class GroupProfile extends Component {
   handleJoinGroup = () => {
     if (
       this.props.user.credentials.gHandle === '' &&
-      this.props.userCount < 10
+      this.props.group.group.userCount < 10
     ) {
+      console.log('adding user');
       this.props.addUser({ groupHandle: this.props.group.group.groupHandle });
     }
   };
