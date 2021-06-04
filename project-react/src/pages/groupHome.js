@@ -15,9 +15,6 @@ const styles = (theme) => ({
 });
 
 class groupHome extends Component {
-  state = {
-    users: [],
-  };
   componentDidMount() {
     const groupHandle = this.props.match.params.groupHandle;
     this.props.getGroup(groupHandle);
@@ -28,7 +25,9 @@ class groupHome extends Component {
     const { classes } = this.props;
 
     let usersMarkup = users ? (
-      users.map((user) => <MemberCards key={user.userId} member={user} />)
+      users.map((user) => (
+        <MemberCards key={user.userId} member={user.handle} />
+      ))
     ) : (
       <CircularProgress size={30} className={classes.progress} />
     );

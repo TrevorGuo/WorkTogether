@@ -54,10 +54,9 @@ class MemberCards extends Component {
   render() {
     const {
       classes,
-      member: { handle, bio, location, imageUrl, createdAt },
+      member: { bio, location, imageUrl, createdAt },
       loading,
     } = this.props;
-    console.log(this.props);
 
     let memberCardMarkup = !loading ? (
       <Paper className={classes.card}>

@@ -21,10 +21,10 @@ const store = createStore(
   reducers,
   initialState,
   compose(
-    applyMiddleware(...middleware)
+    applyMiddleware(...middleware),
     // Comment lines below for production
-    // window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    //   window.__REDUX_DEVTOOLS_EXTENSION__({ trace: true, traceLimit: 10 })
+    window.__REDUX_DEVTOOLS_EXTENSION__ &&
+      window.__REDUX_DEVTOOLS_EXTENSION__({ trace: true, traceLimit: 10 })
   )
 );
 
