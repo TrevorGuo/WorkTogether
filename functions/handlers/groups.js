@@ -2,6 +2,7 @@ const { admin, db } = require('../util/admin');
 const { uuid } = require('uuidv4');
 const config = require('../util/config');
 const firebase = require('firebase');
+const { reduceGroupDetails } = require('../util/validators');
 
 //Create Group
 exports.createGroup = (req, res) => {
@@ -138,27 +139,6 @@ exports.joinGroup = (req, res) => {
 };
 
 exports.leaveGroup = (req, res) => {
-  // console.log(req.body);
-  // var group = db
-  //   .collection('groups')
-  //   .where('groupHandle', '==', req.body.groupHandle)
-  //   .limit(1);
-  // if (req.user.gHandle !== group.groupHandle) {
-  //   return res
-  //     .status(404)
-  //     .json({ error: 'You are already not in this group.' });
-  // } else {
-  //   group.update({
-  //     userCount: firebase.firestore.FieldValue.increment(-1),
-  //   });
-  //   group.update({
-  //     users: firebase.firestore.FieldValue.arrayRemove(req.user),
-  //   });
-  //   req.user.update({
-  //     groupId: '',
-  //     gHandle: '',
-  //   });
-  // }
   console.log('Removing User');
   const groupDocument = db.doc(`/groups/${req.body.groupHandle}`);
   let groupData;
@@ -204,26 +184,27 @@ exports.leaveGroup = (req, res) => {
 };
 
 exports.deleteGroup = (req, res) => {
-  var document = db.doc(`/groups/${req.params.groupId}`);
+  var document = db.doc(`/groups/${req.user.gHandle}`);
+
+  let groupData;
   document
     .get()
     .then((doc) => {
       if (!doc.exists) {
         return res.status(404).json({ error: 'Group not found' });
       }
-      if (doc.data().groupHandle !== req.user.groupHandle) {
+      groupData = doc.data();
+      if (groupData.groupHandle !== req.user.groupHandle) {
         return res.status(403).json({ error: 'Unauthorized' });
-      } else if (doc.data().admin !== req.user.handle) {
+      } else if (groupData.admin !== req.user.handle) {
         return res.status(402).json({ error: 'Only admin can delete group' });
-      } else {
-        document.users.forEach((user) => {
-          user.update({
-            groupId: '',
-            gHandle: '',
-          });
-        });
-        return document.delete();
       }
+    })
+    .then(() => {
+      groupData.users.forEach((user) => {
+        db.doc(`/users/${user.handle}`).update({ groupId: '', gHandle: '' });
+      });
+      return document.delete();
     })
     .then(() => {
       res.json({ message: 'Post deleted successfully' });
@@ -290,4 +271,18 @@ exports.uploadImageGroup = (req, res) => {
       });
   });
   busboy.end(req.rawBody);
+};
+
+exports.addGroupDetails = (req, res) => {
+  let groupDetails = reduceGroupDetails(req.body);
+  console.log(req.user.gHandle);
+  db.doc(`/groups/${req.user.gHandle}`)
+    .update(groupDetails)
+    .then(() => {
+      return res.json({ message: 'Details added successfully' });
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
 };

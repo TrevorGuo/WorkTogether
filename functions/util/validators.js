@@ -52,3 +52,13 @@ exports.reduceUserDetails = (data) => {
 
   return userDetails;
 };
+
+exports.reduceGroupDetails = (data) => {
+  let groupDetails = {};
+
+  if (!isEmpty(data.body.trim())) groupDetails.body = data.body;
+
+  if (!isEmpty(data.location.trim())) groupDetails.location = data.location;
+
+  return groupDetails;
+};
